@@ -4,202 +4,184 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0B0F1A">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FFFFFF">
 <title>Italy 2026 | Budget Tracker</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇮🇹</text></svg>">
 <style>
 :root {
-  /* ── Dark Fintech Palette ── */
-  --bg:#0B0F1A; --bg2:#111827; --bg3:#1E293B;
-  --card:rgba(15,23,42,0.72); --card-solid:#0F172A; --card-hover:rgba(30,41,59,0.5);
-  --glass-border:rgba(255,255,255,0.06);
-
-  /* Accent */
-  --accent:#06B6D4; --accent2:#8B5CF6;
-  --accent-grad:linear-gradient(135deg,#06B6D4,#8B5CF6);
-  --accent-glow:rgba(6,182,212,0.2); --accent-glow2:rgba(139,92,246,0.15);
-  --light-blue:rgba(6,182,212,0.1);
-
-  /* Legacy mappings */
-  --navy:#E2E8F0; --blue:#1E3A5F;
-
-  /* Status */
-  --green:#10B981; --green-light:rgba(16,185,129,0.12);
-  --yellow:#F59E0B; --yellow-light:rgba(245,158,11,0.1);
-  --red:#EF4444; --red-light:rgba(239,68,68,0.1);
-  --orange:#F97316;
-
-  /* Text */
-  --text:#F1F5F9; --text-med:#94A3B8; --text-light:#64748B;
-
-  /* Border */
-  --border:rgba(255,255,255,0.08);
-
-  /* Regions */
-  --florence:rgba(251,146,60,0.08); --florence-a:#FB923C;
-  --toscana:rgba(34,197,94,0.08); --toscana-a:#22C55E;
-  --roma:rgba(248,113,113,0.08); --roma-a:#F87171;
-
-  /* Payment */
-  --wise:#38BDF8; --aeternum:#A78BFA; --dinheiro:#34D399;
-
-  /* Effects */
-  --radius:16px;
-  --shadow:0 4px 24px rgba(0,0,0,0.3);
-  --shadow-lg:0 8px 40px rgba(0,0,0,0.5);
+  --bg:#FFFFFF; --bg2:#F7F8FA; --bg3:#EFF1F5;
+  --card:#FFFFFF; --card-hover:#F7F8FA;
+  --accent:#0075EB; --accent-light:rgba(0,117,235,0.08); --accent-med:rgba(0,117,235,0.15);
+  --green:#00C48C; --green-light:rgba(0,196,140,0.1);
+  --yellow:#FFB800; --yellow-light:rgba(255,184,0,0.1);
+  --red:#FF3B30; --red-light:rgba(255,59,48,0.08);
+  --orange:#FF9500;
+  --text:#1A1A2E; --text-med:#6B7280; --text-light:#9CA3AF;
+  --border:#F0F0F5; --border-med:#E5E7EB;
+  --florence-a:#FF9500; --florence-bg:rgba(255,149,0,0.08);
+  --toscana-a:#34C759; --toscana-bg:rgba(52,199,89,0.08);
+  --roma-a:#FF3B30; --roma-bg:rgba(255,59,48,0.08);
+  --wise:#0075EB; --aeternum:#AF52DE; --dinheiro:#00C48C;
+  --radius:14px;
+  --shadow:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.02);
+  --shadow-md:0 2px 8px rgba(0,0,0,0.06),0 1px 3px rgba(0,0,0,0.04);
 }
-
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;padding-bottom:76px}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Rounded','SF Pro Display','Segoe UI',Roboto,sans-serif;background:var(--bg2);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;padding-bottom:72px}
 
-/* ── Top Bar ── */
-.top-bar{background:linear-gradient(180deg,rgba(15,23,42,0.95) 0%,rgba(11,15,26,0.9) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);color:#fff;padding:16px 20px 12px;position:sticky;top:0;z-index:100}
-.top-bar h1{font-size:18px;font-weight:800;letter-spacing:.3px;background:var(--accent-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.top-bar .sub{font-size:11px;color:var(--text-light);margin-top:2px;font-weight:500}
+.top-bar{background:var(--bg);padding:14px 20px 10px;position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border)}
+.top-bar h1{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-.2px}
+.top-bar .sub{font-size:11px;color:var(--text-light);margin-top:1px;font-weight:500}
 
-/* ── Bottom Nav ── */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(11,15,26,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--glass-border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
-.nav-btn{flex:1;padding:8px 4px 6px;border:none;background:0;font-size:9px;font-weight:600;color:var(--text-light);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:.2s;letter-spacing:.3px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.nav-btn{flex:1;padding:6px 4px 5px;border:none;background:0;font-size:9px;font-weight:600;color:var(--text-light);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:color .2s;letter-spacing:.2px}
 .nav-btn.active{color:var(--accent)}
 .nav-btn .ico{font-size:20px;line-height:1}
-.nav-btn.add-btn .ico{width:40px;height:40px;background:var(--accent-grad);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:300;margin-top:-18px;box-shadow:0 4px 20px var(--accent-glow),0 2px 8px var(--accent-glow2)}
+.nav-btn.add-btn .ico{width:38px;height:38px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:300;margin-top:-16px;box-shadow:0 3px 12px rgba(0,117,235,0.3)}
 
-.tab-content{display:none;padding:14px;max-width:600px;margin:0 auto}
+.tab-content{display:none;padding:12px 16px;max-width:600px;margin:0 auto}
 .tab-content.active{display:block}
 
-/* ── Cards (Glassmorphism) ── */
-.card{background:var(--card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
-.card-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-light);margin-bottom:12px}
+.card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:10px;box-shadow:var(--shadow)}
+.card-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px}
 
-/* ── Hero / Big Number ── */
-.big-num{text-align:center;padding:18px 0}
-.big-num .amt{font-size:42px;font-weight:800;line-height:1;letter-spacing:-1px}
-.big-num .lbl{font-size:12px;color:var(--text-light);margin-top:4px;font-weight:500}
-.big-num.ok .amt{color:var(--green)} .big-num.warn .amt{color:var(--yellow)} .big-num.bad .amt{color:var(--red)}
+/* Hero */
+.hero-section{background:var(--bg);border-radius:var(--radius);padding:24px 16px 16px;margin-bottom:10px;text-align:center;box-shadow:var(--shadow)}
+.hero-amount{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1;color:var(--text)}
+.hero-amount.warn{color:var(--yellow)} .hero-amount.bad{color:var(--red)}
+.hero-label{font-size:12px;color:var(--text-light);margin-top:4px;font-weight:500}
+.hero-bar{height:4px;background:var(--bg3);border-radius:2px;margin:14px 0 6px;overflow:hidden}
+.hero-bar-fill{height:100%;border-radius:2px;transition:width .6s ease}
+.hero-bar-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--text-light);font-weight:500}
 
-/* ── Progress ── */
-.progress-bg{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:12px 0 6px}
-.progress-fill{height:100%;border-radius:3px;transition:width .6s ease,background .3s}
-.progress-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--text-light);font-weight:500}
+/* Chart */
+.chart-card{background:var(--bg);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow)}
+.chart-card .card-title{margin-bottom:8px}
+.chart-container{position:relative;height:100px;width:100%}
+.chart-container svg{width:100%;height:100%}
+.chart-empty{text-align:center;padding:20px 0;color:var(--text-light);font-size:12px}
 
-/* ── KPIs ── */
-.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.kpi{background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:12px;padding:12px;text-align:center}
+/* KPIs */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.kpi{background:var(--bg);border-radius:12px;padding:12px;text-align:center;box-shadow:var(--shadow)}
 .kpi .v{font-size:20px;font-weight:700;color:var(--text)} .kpi .l{font-size:10px;color:var(--text-light);margin-top:2px;font-weight:500}
 
-/* ── Region Bars ── */
-.region-bar{display:flex;align-items:center;padding:10px 12px;border-radius:12px;margin-bottom:6px;border:1px solid transparent}
-.region-bar .ri{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-right:10px;flex-shrink:0;color:#fff}
-.region-bar .rn{font-weight:600;font-size:13px;color:var(--text)} .region-bar .rd{font-size:10px;color:var(--text-light)}
-.region-bar .ra{font-weight:700;font-size:15px;text-align:right;color:var(--text)} .region-bar .rb{font-size:10px;color:var(--text-light);text-align:right}
-.rf{background:var(--florence);border-color:rgba(251,146,60,0.12)} .rf .ri{background:var(--florence-a)}
-.rt{background:var(--toscana);border-color:rgba(34,197,94,0.12)} .rt .ri{background:var(--toscana-a)}
-.rr{background:var(--roma);border-color:rgba(248,113,113,0.12)} .rr .ri{background:var(--roma-a)}
+/* Category rows */
+.cat-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.cat-row:last-child{border-bottom:0}
+.cat-icon-circle{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:var(--bg2)}
+.cat-row .cn{flex:1;margin-left:10px}
+.cat-row .cn .nm{font-size:13px;font-weight:600;color:var(--text)}
+.cat-row .cn .bar-bg{height:3px;background:var(--bg3);border-radius:2px;margin-top:4px;overflow:hidden}
+.cat-row .cn .bar-fill{height:100%;border-radius:2px;transition:width .5s}
+.cat-row .ca{text-align:right;flex-shrink:0;margin-left:8px}
+.cat-row .ca .av{font-weight:700;font-size:14px;color:var(--text)}
+.cat-row .ca .pv{font-size:10px;color:var(--text-light)}
 
-/* ── Form ── */
+/* Region bars */
+.region-bar{display:flex;align-items:center;padding:10px 12px;border-radius:12px;margin-bottom:6px}
+.region-bar .ri{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;color:#fff}
+.region-bar .rn{font-weight:600;font-size:13px;color:var(--text)} .region-bar .rd{font-size:10px;color:var(--text-light)}
+.region-bar .ra{font-weight:700;font-size:14px;text-align:right;color:var(--text)} .region-bar .rb{font-size:10px;color:var(--text-light);text-align:right}
+.rf{background:var(--florence-bg)} .rf .ri{background:var(--florence-a)}
+.rt{background:var(--toscana-bg)} .rt .ri{background:var(--toscana-a)}
+.rr{background:var(--roma-bg)} .rr .ri{background:var(--roma-a)}
+
+/* Payment */
+.pay-summary{display:flex;gap:8px}
+.pay-card{flex:1;padding:10px;border-radius:12px;text-align:center}
+.pay-card .pv2{font-size:17px;font-weight:700} .pay-card .pl2{font-size:10px;margin-top:2px;font-weight:500}
+.pay-wise{background:rgba(0,117,235,0.06);color:var(--wise)}
+.pay-aeternum{background:rgba(175,82,222,0.06);color:var(--aeternum)}
+.pay-din{background:rgba(0,196,140,0.06);color:var(--dinheiro)}
+
+/* Paid items */
+.paid-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--text-med)}
+.paid-item:last-child{border-bottom:0}
+.paid-badge{font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;background:var(--green-light);color:var(--green)}
+
+/* Form */
 .form-group{margin-bottom:16px}
 .form-label{font-size:11px;font-weight:600;color:var(--text-light);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.5px}
-.form-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:15px;font-family:inherit;background:rgba(15,23,42,0.8);color:var(--text);transition:.2s;-webkit-appearance:none}
-.form-input:focus{outline:0;border-color:var(--accent);background:rgba(15,23,42,1);box-shadow:0 0 0 3px var(--accent-glow)}
+.form-input{width:100%;padding:12px 14px;border:1.5px solid var(--border-med);border-radius:12px;font-size:15px;font-family:inherit;background:var(--bg);color:var(--text);transition:.2s;-webkit-appearance:none}
+.form-input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light)}
 .form-input.big{font-size:32px;font-weight:800;text-align:center;color:var(--accent);padding:18px;letter-spacing:-1px}
-.region-badge{display:inline-block;font-size:11px;font-weight:600;padding:4px 10px;border-radius:8px;margin-top:4px}
-.region-badge.florence{background:var(--florence);color:var(--florence-a);border:1px solid rgba(251,146,60,0.15)}
-.region-badge.toscana{background:var(--toscana);color:var(--toscana-a);border:1px solid rgba(34,197,94,0.15)}
-.region-badge.roma{background:var(--roma);color:var(--roma-a);border:1px solid rgba(248,113,113,0.15)}
+.region-badge{display:inline-block;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;margin-top:4px}
+.region-badge.florence{background:var(--florence-bg);color:var(--florence-a)}
+.region-badge.toscana{background:var(--toscana-bg);color:var(--toscana-a)}
+.region-badge.roma{background:var(--roma-bg);color:var(--roma-a)}
 
-/* ── Category Pills ── */
+/* Cat pills */
 .cat-pills{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.cat-pill{padding:10px 4px;border:1.5px solid var(--border);border-radius:12px;background:var(--card-solid);cursor:pointer;text-align:center;transition:.2s;-webkit-user-select:none;user-select:none}
+.cat-pill{padding:10px 4px;border:1.5px solid var(--border-med);border-radius:12px;background:var(--bg);cursor:pointer;text-align:center;transition:.2s;-webkit-user-select:none;user-select:none}
 .cat-pill .ci{font-size:20px;display:block} .cat-pill .cl{font-size:9px;color:var(--text-light);margin-top:2px;display:block}
-.cat-pill.sel{border-color:var(--accent);background:rgba(6,182,212,0.1);box-shadow:0 0 12px var(--accent-glow)}
+.cat-pill.sel{border-color:var(--accent);background:var(--accent-light)}
 .cat-pill:active{transform:scale(.95)}
 
-/* ── Payment Pills ── */
+/* Pay pills */
 .pay-pills{display:flex;gap:6px}
-.pay-pill{flex:1;padding:10px 8px;border:1.5px solid var(--border);border-radius:12px;background:var(--card-solid);cursor:pointer;text-align:center;font-size:12px;font-weight:600;color:var(--text-med);transition:.2s;-webkit-user-select:none;user-select:none}
-.pay-pill.sel-wise{border-color:var(--wise);background:rgba(56,189,248,0.1);color:var(--wise);box-shadow:0 0 12px rgba(56,189,248,0.15)}
-.pay-pill.sel-aeternum{border-color:var(--aeternum);background:rgba(167,139,250,0.1);color:var(--aeternum);box-shadow:0 0 12px rgba(167,139,250,0.15)}
-.pay-pill.sel-dinheiro{border-color:var(--dinheiro);background:rgba(52,211,153,0.1);color:var(--dinheiro);box-shadow:0 0 12px rgba(52,211,153,0.15)}
+.pay-pill{flex:1;padding:10px 8px;border:1.5px solid var(--border-med);border-radius:12px;background:var(--bg);cursor:pointer;text-align:center;font-size:12px;font-weight:600;color:var(--text-med);transition:.2s;-webkit-user-select:none;user-select:none}
+.pay-pill.sel-wise{border-color:var(--wise);background:rgba(0,117,235,0.06);color:var(--wise)}
+.pay-pill.sel-aeternum{border-color:var(--aeternum);background:rgba(175,82,222,0.06);color:var(--aeternum)}
+.pay-pill.sel-dinheiro{border-color:var(--dinheiro);background:rgba(0,196,140,0.06);color:var(--dinheiro)}
 .pay-pill:active{transform:scale(.95)}
 
-/* ── Buttons ── */
+/* Buttons */
 .btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
-.btn-primary{background:var(--accent-grad);color:#fff;box-shadow:0 4px 20px var(--accent-glow)} .btn-primary:active{opacity:.85;transform:scale(.98)}
-.btn-outline{background:transparent;color:var(--text-med);border:1.5px solid var(--border)} .btn-outline:active{background:rgba(255,255,255,0.03)}
-.btn-danger{background:var(--red-light);color:var(--red);border:1px solid rgba(239,68,68,0.15)} .btn-danger:active{background:rgba(239,68,68,0.2)}
+.btn-primary{background:var(--accent);color:#fff} .btn-primary:active{opacity:.85;transform:scale(.98)}
+.btn-outline{background:transparent;color:var(--text-med);border:1.5px solid var(--border-med)} .btn-outline:active{background:var(--bg2)}
+.btn-danger{background:var(--red-light);color:var(--red);border:none} .btn-danger:active{opacity:.8}
 .btn-sm{padding:8px 14px;font-size:12px;width:auto;display:inline-block;border-radius:8px}
 
-/* ── Transaction List ── */
-.tx-group-header{font-size:10px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.8px;padding:12px 4px 6px;display:flex;justify-content:space-between;align-items:center}
-.tx-group-total{font-weight:700;color:var(--accent);font-size:13px}
-.tx-item{display:flex;align-items:center;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:14px;padding:10px 12px;margin-bottom:6px;gap:10px;transition:background .2s}
-.tx-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;background:rgba(255,255,255,0.04);flex-shrink:0}
+/* Transaction List */
+.tx-group-header{font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:.3px;padding:12px 4px 6px;display:flex;justify-content:space-between;align-items:center}
+.tx-group-total{font-weight:700;color:var(--text);font-size:13px}
+.tx-item{display:flex;align-items:center;background:var(--bg);border-radius:14px;padding:10px 12px;margin-bottom:6px;gap:10px;box-shadow:var(--shadow)}
+.tx-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--bg2);flex-shrink:0}
 .tx-info{flex:1;min-width:0}
 .tx-cat{font-size:13px;font-weight:600;color:var(--text)} .tx-note{font-size:11px;color:var(--text-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tx-right{text-align:right;flex-shrink:0}
 .tx-amt{font-weight:700;font-size:15px;color:var(--text)}
-.tx-pay{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;display:inline-block;margin-top:2px}
-.tx-pay.wise{background:rgba(56,189,248,0.12);color:var(--wise)} .tx-pay.aeternum{background:rgba(167,139,250,0.12);color:var(--aeternum)} .tx-pay.dinheiro{background:rgba(52,211,153,0.12);color:var(--dinheiro)}
+.tx-pay{font-size:9px;font-weight:600;padding:2px 6px;border-radius:10px;display:inline-block;margin-top:2px}
+.tx-pay.wise{background:rgba(0,117,235,0.08);color:var(--wise)} .tx-pay.aeternum{background:rgba(175,82,222,0.08);color:var(--aeternum)} .tx-pay.dinheiro{background:rgba(0,196,140,0.08);color:var(--dinheiro)}
 .tx-actions{display:flex;gap:4px;margin-left:4px;flex-shrink:0}
-.tx-act-btn{width:28px;height:28px;border:none;border-radius:8px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:.2s}
-.tx-edit{background:rgba(6,182,212,0.1);color:var(--accent)} .tx-del{background:var(--red-light);color:var(--red)}
+.tx-act-btn{width:28px;height:28px;border:none;border-radius:50%;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.tx-edit{background:var(--accent-light);color:var(--accent)} .tx-del{background:var(--red-light);color:var(--red)}
 .tx-act-btn:active{transform:scale(.9)}
 
-/* ── Filters ── */
+/* Filters */
 .filter-row{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
-.filter-chip{padding:6px 12px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-size:11px;font-weight:600;color:var(--text-med);cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0}
-.filter-chip.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 14px var(--accent-glow)}
+.filter-chip{padding:6px 14px;border-radius:20px;border:none;background:var(--bg);font-size:11px;font-weight:600;color:var(--text-med);cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0;box-shadow:var(--shadow)}
+.filter-chip.active{background:var(--accent);color:#fff}
 
-/* ── Summary ── */
-.cat-row{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
-.cat-row:last-child{border-bottom:0}
-.cat-row .ci2{font-size:16px;width:28px;text-align:center;flex-shrink:0}
-.cat-row .cn{flex:1;margin-left:6px}
-.cat-row .cn .nm{font-size:12px;font-weight:600;color:var(--text)} .cat-row .cn .bar-bg{height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:3px;overflow:hidden}
-.cat-row .cn .bar-fill{height:100%;border-radius:2px;transition:width .5s}
-.cat-row .ca{text-align:right;flex-shrink:0} .cat-row .ca .av{font-weight:700;font-size:13px;color:var(--text)} .cat-row .ca .pv{font-size:10px;color:var(--text-light)}
-
-/* ── Payment Summary ── */
-.pay-summary{display:flex;gap:8px;margin-top:8px}
-.pay-card{flex:1;padding:10px;border-radius:10px;text-align:center;border:1px solid transparent}
-.pay-card .pv2{font-size:18px;font-weight:700} .pay-card .pl2{font-size:10px;margin-top:2px;font-weight:500}
-.pay-wise{background:rgba(56,189,248,0.08);color:var(--wise);border-color:rgba(56,189,248,0.12)}
-.pay-aeternum{background:rgba(167,139,250,0.08);color:var(--aeternum);border-color:rgba(167,139,250,0.12)}
-.pay-din{background:rgba(52,211,153,0.08);color:var(--dinheiro);border-color:rgba(52,211,153,0.12)}
-
-/* ── Paid Items ── */
-.paid-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--text-med)}
-.paid-item:last-child{border-bottom:0}
-.paid-badge{font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--green-light);color:var(--green)}
-
-/* ── Settings ── */
-.edit-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
+/* Settings */
+.edit-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
 .edit-row:last-child{border-bottom:0}
 .edit-label{font-size:13px;font-weight:500;color:var(--text-med)}
-.edit-input{width:90px;padding:8px;border:1.5px solid var(--border);border-radius:8px;text-align:right;font-size:14px;font-weight:600;font-family:inherit;-webkit-appearance:none;background:rgba(15,23,42,0.8);color:var(--text)}
-.edit-input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-glow)}
+.edit-input{width:90px;padding:8px;border:1.5px solid var(--border-med);border-radius:10px;text-align:right;font-size:14px;font-weight:600;font-family:inherit;-webkit-appearance:none;background:var(--bg);color:var(--text)}
+.edit-input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-light)}
 
-/* ── Modal ── */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:20px}
+/* Modal */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;padding:20px}
 .modal-bg.show{display:flex}
-.modal{background:var(--card-solid);border:1px solid var(--glass-border);border-radius:var(--radius);padding:20px;max-width:340px;width:100%;text-align:center}
-.modal h3{font-size:15px;margin-bottom:6px;color:var(--text)} .modal p{font-size:12px;color:var(--text-light);margin-bottom:14px}
+.modal{background:var(--bg);border-radius:var(--radius);padding:24px;max-width:340px;width:100%;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.12)}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:6px;color:var(--text)} .modal p{font-size:13px;color:var(--text-med);margin-bottom:16px}
 .modal-btns{display:flex;gap:8px}
 .modal-btns .btn{flex:1}
 
-/* ── Toast ── */
-.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--accent-grad);color:#fff;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;z-index:300;transition:transform .3s;box-shadow:0 4px 24px var(--accent-glow)}
+/* Toast */
+.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--text);color:#fff;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:600;z-index:300;transition:transform .3s;box-shadow:var(--shadow-md)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
-/* ── Empty State ── */
+/* Empty */
 .empty{text-align:center;padding:40px 20px;color:var(--text-light)}
 .empty .ei{font-size:40px;margin-bottom:8px} .empty .et{font-size:14px;font-weight:600;color:var(--text-med)} .empty .es{font-size:12px;margin-top:4px}
 
-/* ── Roteiro Tab ── */
-.rot-day{background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+/* Roteiro */
+.rot-day{background:var(--bg);border-radius:var(--radius);margin-bottom:8px;box-shadow:var(--shadow);overflow:hidden}
 .rot-day-header{display:flex;align-items:center;padding:12px 14px;cursor:pointer;gap:10px;-webkit-user-select:none;user-select:none}
-.rot-day-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
+.rot-day-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
 .rot-day-num.florence{background:var(--florence-a)} .rot-day-num.toscana{background:var(--toscana-a)} .rot-day-num.roma{background:var(--roma-a)} .rot-day-num.transit{background:var(--accent)}
 .rot-day-info{flex:1;min-width:0}
 .rot-day-title{font-size:14px;font-weight:700;color:var(--text)} .rot-day-sub{font-size:11px;color:var(--text-light);margin-top:1px}
@@ -207,39 +189,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Ro
 .rot-day.open .rot-day-arrow{transform:rotate(180deg)}
 .rot-day-body{display:none;padding:0 14px 14px;border-top:1px solid var(--border)}
 .rot-day.open .rot-day-body{display:block}
-
 .rot-section{margin-top:10px}
 .rot-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-light);margin-bottom:6px;display:flex;align-items:center;gap:4px}
 .rot-section-title::before{content:'';flex:0 0 3px;height:3px;border-radius:2px;background:var(--accent)}
-
 .rot-item{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);align-items:flex-start}
 .rot-item:last-child{border-bottom:0}
 .rot-time{font-size:11px;font-weight:700;color:var(--accent);min-width:42px;flex-shrink:0;padding-top:1px}
 .rot-item-content{flex:1;min-width:0}
 .rot-item-title{font-size:13px;font-weight:600;color:var(--text)}
 .rot-item-detail{font-size:11px;color:var(--text-light);margin-top:1px}
-.rot-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px;vertical-align:middle}
-.rot-badge.flight{background:rgba(56,189,248,0.12);color:var(--wise)} .rot-badge.train{background:rgba(251,146,60,0.12);color:var(--florence-a)}
-.rot-badge.tour{background:rgba(167,139,250,0.12);color:var(--aeternum)} .rot-badge.restaurant{background:rgba(248,113,113,0.12);color:var(--roma-a)}
-.rot-badge.car{background:rgba(52,211,153,0.12);color:var(--dinheiro)} .rot-badge.ticket{background:rgba(245,158,11,0.12);color:var(--yellow)}
-
-.rot-address{display:flex;align-items:center;gap:6px;background:rgba(30,41,59,0.5);border:1px solid var(--glass-border);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:12px;color:var(--text-med);cursor:pointer;-webkit-user-select:all;user-select:all;transition:.2s}
-.rot-address:active{background:rgba(30,41,59,0.8)}
+.rot-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:4px;vertical-align:middle}
+.rot-badge.flight{background:rgba(0,117,235,0.08);color:var(--wise)} .rot-badge.train{background:var(--florence-bg);color:var(--florence-a)}
+.rot-badge.tour{background:rgba(175,82,222,0.08);color:var(--aeternum)} .rot-badge.restaurant{background:var(--roma-bg);color:var(--roma-a)}
+.rot-badge.car{background:rgba(0,196,140,0.08);color:var(--dinheiro)} .rot-badge.ticket{background:var(--yellow-light);color:var(--yellow)}
+.rot-address{display:flex;align-items:center;gap:6px;background:var(--bg2);border-radius:12px;padding:10px 12px;margin-top:8px;font-size:12px;color:var(--text-med);cursor:pointer;-webkit-user-select:all;user-select:all;transition:.2s}
+.rot-address:active{background:var(--bg3)}
 .rot-address .rot-addr-icon{font-size:16px;flex-shrink:0}
 .rot-address .rot-addr-text{flex:1}
 .rot-address .rot-addr-text strong{color:var(--text)}
 .rot-address .rot-addr-link{font-size:10px;color:var(--accent);font-weight:600;flex-shrink:0;text-decoration:none}
-
-.rot-suggest{padding:5px 0 5px 8px;border-left:2px solid rgba(6,182,212,0.25);margin:3px 0}
+.rot-suggest{padding:5px 0 5px 8px;border-left:2px solid var(--border-med);margin:3px 0}
 .rot-suggest-item{font-size:12px;color:var(--text-med);padding:2px 0;line-height:1.4}
-
 .rot-period{font-size:11px;font-weight:700;color:var(--accent);margin:8px 0 4px;display:flex;align-items:center;gap:4px}
 .rot-period::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.rot-note{background:var(--yellow-light);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:11px;color:var(--text-med);line-height:1.4}
+.rot-note strong{color:var(--orange)}
 
-.rot-note{background:var(--yellow-light);border:1px solid rgba(245,158,11,0.12);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:11px;color:var(--text-med);line-height:1.4}
-.rot-note strong{color:var(--yellow)}
-
-@media(max-width:380px){.big-num .amt{font-size:34px} .kpi .v{font-size:17px} .cat-pills{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:380px){.hero-amount{font-size:34px} .kpi .v{font-size:17px} .cat-pills{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
@@ -249,12 +225,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Ro
   <div class="sub">18 Fev - 01 Mar | Budget Tracker</div>
 </div>
 
-<!-- ═══ TAB: DASHBOARD ═══ -->
+<!-- TAB: DASHBOARD -->
 <div id="tab-dash" class="tab-content active">
-  <div class="card">
-    <div class="big-num" id="hero"><div class="amt" id="hero-amt">€2.588</div><div class="lbl">Saldo disponivel</div></div>
-    <div class="progress-bg"><div class="progress-fill" id="prog-fill" style="width:0%;background:var(--green)"></div></div>
-    <div class="progress-lbl"><span id="prog-spent">€0 gasto</span><span id="prog-total">de €2.588</span></div>
+  <div class="hero-section">
+    <div class="hero-amount" id="hero-amt">€2.588</div>
+    <div class="hero-label" id="hero-lbl">Saldo disponivel</div>
+    <div class="hero-bar"><div class="hero-bar-fill" id="prog-fill" style="width:0%;background:var(--green)"></div></div>
+    <div class="hero-bar-labels"><span id="prog-spent">€0 gasto</span><span id="prog-total">de €2.588</span></div>
+  </div>
+  <div class="chart-card">
+    <div class="card-title">Gastos por dia</div>
+    <div id="chart-area"></div>
   </div>
   <div class="kpi-grid">
     <div class="kpi"><div class="v" id="k-avg">€0</div><div class="l">Media/dia</div></div>
@@ -262,7 +243,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Ro
     <div class="kpi"><div class="v" id="k-avail">€216</div><div class="l">Disponivel/dia</div></div>
     <div class="kpi"><div class="v" id="k-pct">0%</div><div class="l">% utilizado</div></div>
   </div>
-  <div class="card" style="margin-top:10px">
+  <div class="card">
     <div class="card-title">Gastos por Categoria</div>
     <div id="dash-cats"></div>
   </div>
@@ -289,7 +270,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Ro
   </div>
 </div>
 
-<!-- ═══ TAB: ADD EXPENSE ═══ -->
+<!-- TAB: ADD EXPENSE -->
 <div id="tab-add" class="tab-content">
   <div class="card">
     <div class="card-title" id="form-title">Novo Lancamento</div>
@@ -323,13 +304,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Ro
   </div>
 </div>
 
-<!-- ═══ TAB: TRANSACTIONS ═══ -->
+<!-- TAB: TRANSACTIONS -->
 <div id="tab-list" class="tab-content">
   <div class="filter-row" id="filters"></div>
   <div id="tx-container"></div>
 </div>
 
-<!-- ═══ TAB: SETTINGS ═══ -->
+<!-- TAB: SETTINGS -->
 <div id="tab-settings" class="tab-content">
   <div class="card">
     <div class="card-title">Budget Geral</div>
@@ -346,7 +327,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Ro
     <div class="card-title">Budget por Categoria</div>
     <div id="settings-cats"></div>
   </div>
-  <button class="btn btn-primary" onclick="saveSettings()" style="margin:0 14px 12px">Salvar configuracoes</button>
+  <button class="btn btn-primary" onclick="saveSettings()" style="margin:0 0 12px">Salvar configuracoes</button>
   <div class="card">
     <div class="card-title">Dados</div>
     <div style="display:flex;gap:8px">
@@ -356,12 +337,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Ro
   </div>
 </div>
 
-<!-- ═══ TAB: ROTEIRO ═══ -->
+<!-- TAB: ROTEIRO -->
 <div id="tab-roteiro" class="tab-content">
   <div id="rot-container"></div>
 </div>
 
-<!-- ═══ Bottom Nav ═══ -->
+<!-- Bottom Nav -->
 <nav class="bottom-nav">
   <button class="nav-btn active" data-tab="dash"><span class="ico">&#128202;</span>Dashboard</button>
   <button class="nav-btn" data-tab="roteiro"><span class="ico">&#128506;</span>Roteiro</button>
@@ -370,7 +351,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Ro
   <button class="nav-btn" data-tab="settings"><span class="ico">&#9881;</span>Settings</button>
 </nav>
 
-<!-- ═══ Modals ═══ -->
+<!-- Modals -->
 <div class="modal-bg" id="modal-reset"><div class="modal"><h3>Limpar todos os dados?</h3><p>Remove todos os lancamentos. Nao pode ser desfeito.</p><div class="modal-btns"><button class="btn btn-outline" onclick="closeModal('modal-reset')">Cancelar</button><button class="btn btn-danger" onclick="resetAll()">Confirmar</button></div></div></div>
 <div class="modal-bg" id="modal-delete"><div class="modal"><h3>Excluir lancamento?</h3><p id="del-desc"></p><div class="modal-btns"><button class="btn btn-outline" onclick="closeModal('modal-delete')">Cancelar</button><button class="btn btn-danger" onclick="confirmDelete()">Excluir</button></div></div></div>
 <div class="toast" id="toast"></div>
@@ -380,13 +361,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Ro
 // DATA MODEL
 // ═══════════════════════════════════════
 const CATS = [
-  {key:'food',     label:'Alimentacao',      icon:'🍝', planned:780},
-  {key:'market',   label:'Supermercado',      icon:'🛒', planned:180},
-  {key:'transport',label:'Transporte',        icon:'🚕', planned:160},
-  {key:'gas',      label:'Gasolina/Pedagio',  icon:'⛽', planned:100},
-  {key:'activity', label:'Atividades',        icon:'🎟️', planned:160},
-  {key:'shopping', label:'Compras',           icon:'🛍️', planned:160},
-  {key:'other',    label:'Outros',            icon:'📌', planned:220},
+  {key:'food',     label:'Alimentacao',      icon:'\u{1F35D}', planned:780},
+  {key:'market',   label:'Supermercado',      icon:'\u{1F6D2}', planned:180},
+  {key:'transport',label:'Transporte',        icon:'\u{1F695}', planned:160},
+  {key:'gas',      label:'Gasolina/Pedagio',  icon:'\u26FD', planned:100},
+  {key:'activity', label:'Atividades',        icon:'\u{1F39F}\uFE0F', planned:160},
+  {key:'shopping', label:'Compras',           icon:'\u{1F6CD}\uFE0F', planned:160},
+  {key:'other',    label:'Outros',            icon:'\u{1F4CC}', planned:220},
 ];
 
 const DAYS = [
@@ -418,11 +399,11 @@ let editingId = null;
 let deleteId = null;
 let activeFilter = 'all';
 
-// ═══ Persistence ═══
+// Persistence
 function load(){try{const s=localStorage.getItem('italy2026_v2');if(s){const p=JSON.parse(s);state={...state,...p};REGIONS.florence.planned=state.regionBudgets.florence;REGIONS.toscana.planned=state.regionBudgets.toscana;REGIONS.roma.planned=state.regionBudgets.roma;for(const c of CATS){if(state.categoryBudgets&&state.categoryBudgets[c.key])c.planned=state.categoryBudgets[c.key]}}}catch(e){}}
 function save(){try{localStorage.setItem('italy2026_v2',JSON.stringify(state))}catch(e){}}
 
-// ═══ Helpers ═══
+// Helpers
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 function getAvail(){return state.totalBudget-state.carRental}
 function getRegion(date){const day=DAYS.find(d=>d.dt===date);return day?day.region:'roma'}
@@ -430,12 +411,11 @@ function getDayInfo(date){return DAYS.find(d=>d.dt===date)}
 function fmt(n){return '\u20AC'+Math.round(n).toLocaleString('pt-BR')}
 function fmtDec(n){return '\u20AC'+n.toFixed(2).replace('.',',')}
 function formatDate(d){const[y,m,dd]=d.split('-');return dd+'/'+m}
-
 function totalSpent(){return state.transactions.reduce((s,t)=>s+t.amount,0)}
 function regionSpent(r){return state.transactions.filter(t=>getRegion(t.date)===r).reduce((s,t)=>s+t.amount,0)}
 function catSpent(c){return state.transactions.filter(t=>t.category===c).reduce((s,t)=>s+t.amount,0)}
 function paySpent(p){return state.transactions.filter(t=>t.payment===p).reduce((s,t)=>s+t.amount,0)}
-function daysWithSpending(){const dates=new Set(state.transactions.map(t=>t.date));return dates.size}
+function daysWithSpending(){return new Set(state.transactions.map(t=>t.date)).size}
 
 function todayDate(){
   const now=new Date();
@@ -444,15 +424,63 @@ function todayDate(){
   return '2026-02-18';
 }
 
+// ═══ Spending Chart (SVG) ═══
+function renderChart(){
+  const area=document.getElementById('chart-area');
+  const dayTotals=DAYS.map(d=>{
+    return state.transactions.filter(t=>t.date===d.dt).reduce((s,t)=>s+t.amount,0);
+  });
+  const hasData=dayTotals.some(v=>v>0);
+  if(!hasData){area.innerHTML='<div class="chart-empty">Adicione lancamentos para ver o grafico</div>';return}
+
+  const W=320,H=80,padX=4,padY=4;
+  const maxV=Math.max(...dayTotals,1);
+  const pts=dayTotals.map((v,i)=>{
+    const x=padX+i*((W-2*padX)/(dayTotals.length-1));
+    const y=H-padY-(v/maxV)*(H-2*padY);
+    return {x,y,v};
+  });
+
+  const line=pts.map((p,i)=>((i===0?'M':'L')+p.x.toFixed(1)+','+p.y.toFixed(1))).join(' ');
+  const areaPath=line+` L${pts[pts.length-1].x.toFixed(1)},${H} L${pts[0].x.toFixed(1)},${H} Z`;
+
+  // Region color stops
+  const regColors={florence:'#FF9500',toscana:'#34C759',roma:'#FF3B30'};
+  const stops=DAYS.map((d,i)=>{
+    const pct=((i/(DAYS.length-1))*100).toFixed(1);
+    return `<stop offset="${pct}%" stop-color="${regColors[d.region]||'#0075EB'}"/>`;
+  }).join('');
+
+  let svg=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="width:100%;height:80px">`;
+  svg+=`<defs><linearGradient id="lgrad">${stops}</linearGradient>`;
+  svg+=`<linearGradient id="agrad" x1="0" y1="0" x2="0" y2="1">${stops.replace(/stop-color/g,'stop-color').replace(/\/>/g,' stop-opacity="0.15"/>')}</linearGradient></defs>`;
+  svg+=`<path d="${areaPath}" fill="url(#agrad)" />`;
+  svg+=`<path d="${line}" fill="none" stroke="url(#lgrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+
+  // Dots
+  pts.forEach((p,i)=>{
+    if(p.v>0){
+      svg+=`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3" fill="${regColors[DAYS[i].region]||'#0075EB'}" stroke="#fff" stroke-width="1.5"/>`;
+    }
+  });
+  svg+=`</svg>`;
+
+  // Day labels
+  const labels=DAYS.map(d=>`<span style="font-size:9px;color:var(--text-light);font-weight:500">${d.label.slice(0,5)}</span>`);
+  svg+=`<div style="display:flex;justify-content:space-between;padding:4px 2px 0">${labels.join('')}</div>`;
+
+  area.innerHTML=svg;
+}
+
 // ═══ RENDER: Dashboard ═══
 function renderDash(){
   const avail=getAvail(),spent=totalSpent(),saldo=avail-spent;
   const pct=avail>0?(spent/avail)*100:0;
-  const hero=document.getElementById('hero');
-  hero.className='big-num '+(saldo<0?'bad':pct>80?'warn':'ok');
-  document.getElementById('hero-amt').textContent=fmt(saldo);
+  const heroAmt=document.getElementById('hero-amt');
+  heroAmt.textContent=fmt(saldo);
+  heroAmt.className='hero-amount'+(saldo<0?' bad':pct>80?' warn':'');
   document.getElementById('prog-fill').style.width=Math.min(pct,100)+'%';
-  document.getElementById('prog-fill').style.background=pct>90?'var(--red)':pct>70?'var(--yellow)':'linear-gradient(90deg,#06B6D4,#10B981)';
+  document.getElementById('prog-fill').style.background=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--accent)';
   document.getElementById('prog-spent').textContent=fmt(spent)+' gasto';
   document.getElementById('prog-total').textContent='de '+fmt(avail);
 
@@ -465,16 +493,18 @@ function renderDash(){
   document.getElementById('k-avail').style.color=da<150?'var(--red)':da<200?'var(--yellow)':'var(--accent)';
   document.getElementById('k-pct').textContent=Math.round(pct)+'%';
 
+  renderChart();
+
   // Category spending
   const dashCats=document.getElementById('dash-cats');
   dashCats.innerHTML=CATS.map(c=>{
     const actual=catSpent(c.key);
     const pct=c.planned>0?Math.min((actual/c.planned)*100,100):0;
     const col=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--accent)';
-    return `<div class="cat-row"><span class="ci2">${c.icon}</span><div class="cn"><div class="nm">${c.label}</div><div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="ca"><div class="av">${fmt(actual)}</div><div class="pv">de ${fmt(c.planned)}</div></div></div>`;
+    return `<div class="cat-row"><div class="cat-icon-circle">${c.icon}</div><div class="cn"><div class="nm">${c.label}</div><div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="ca"><div class="av">${fmt(actual)}</div><div class="pv">de ${fmt(c.planned)}</div></div></div>`;
   }).join('');
 
-  // Region spending with progress
+  // Region spending
   const dashRegs=document.getElementById('dash-regs');
   const regData=[
     {k:'florence',icon:'&#127974;',cls:'rf',name:'Florence',period:'18-20 Fev (3 dias)'},
@@ -512,7 +542,7 @@ function updateRegionBadge(){
     const r=day.region;
     el.innerHTML=`<span class="region-badge ${r}">Dia ${day.d} | ${REGIONS[r].name} | ${day.act}</span>`;
   }else{
-    el.innerHTML='<span class="region-badge" style="background:rgba(255,255,255,0.05);color:var(--text-light);border:1px solid var(--border)">Fora do roteiro</span>';
+    el.innerHTML='<span class="region-badge" style="background:var(--bg2);color:var(--text-light)">Fora do roteiro</span>';
   }
 }
 
@@ -535,11 +565,9 @@ function saveTransaction(){
   const cat=getSelectedCat();
   const pay=getSelectedPay();
   const notes=document.getElementById('f-notes').value.trim();
-
   if(!date){showToast('Selecione a data');return}
   if(!amount||amount<=0){showToast('Informe o valor');return}
   if(!cat){showToast('Selecione a categoria');return}
-
   if(editingId){
     const tx=state.transactions.find(t=>t.id===editingId);
     if(tx){tx.date=date;tx.amount=amount;tx.category=cat;tx.payment=pay;tx.notes=notes}
@@ -552,10 +580,7 @@ function saveTransaction(){
     state.transactions.push({id:uid(),date,amount,category:cat,payment:pay,notes});
     showToast('Lancamento salvo!');
   }
-
-  save();
-  resetForm();
-  renderAll();
+  save();resetForm();renderAll();
   document.getElementById('f-amount').focus();
 }
 
@@ -569,14 +594,11 @@ function resetForm(){
 }
 
 function editTransaction(id){
-  const tx=state.transactions.find(t=>t.id===id);
-  if(!tx)return;
-  editingId=id;
-  switchTab('add');
+  const tx=state.transactions.find(t=>t.id===id);if(!tx)return;
+  editingId=id;switchTab('add');
   document.getElementById('f-date').value=tx.date;
   document.getElementById('f-amount').value=tx.amount;
-  selectCat(tx.category);
-  selectPay(tx.payment);
+  selectCat(tx.category);selectPay(tx.payment);
   document.getElementById('f-notes').value=tx.notes||'';
   updateRegionBadge();
   document.getElementById('form-title').textContent='Editar Lancamento';
@@ -595,77 +617,40 @@ function cancelEdit(){
 
 // ═══ RENDER: Transaction List ═══
 function renderList(){
-  // Filters
   const filEl=document.getElementById('filters');
   const filters=[{k:'all',l:'Todos'},{k:'florence',l:'Florence'},{k:'toscana',l:'Toscana'},{k:'roma',l:'Roma'},...PAYS.map(p=>({k:'pay:'+p,l:PAY_LABELS[p]}))];
   filEl.innerHTML=filters.map(f=>`<div class="filter-chip${activeFilter===f.k?' active':''}" onclick="setFilter('${f.k}')">${f.l}</div>`).join('');
-
   const container=document.getElementById('tx-container');
   let txs=[...state.transactions].sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id));
-
-  // Apply filter
   if(activeFilter!=='all'){
     if(activeFilter.startsWith('pay:'))txs=txs.filter(t=>t.payment===activeFilter.slice(4));
     else txs=txs.filter(t=>getRegion(t.date)===activeFilter);
   }
-
-  if(txs.length===0){
-    container.innerHTML=`<div class="empty"><div class="ei">📋</div><div class="et">Nenhum lancamento</div><div class="es">Toque em "+" para adicionar</div></div>`;
-    return;
-  }
-
-  // Group by date
+  if(txs.length===0){container.innerHTML=`<div class="empty"><div class="ei">📋</div><div class="et">Nenhum lancamento</div><div class="es">Toque em "+" para adicionar</div></div>`;return}
   const groups={};
   txs.forEach(t=>{if(!groups[t.date])groups[t.date]=[];groups[t.date].push(t)});
-
   let html='';
   for(const[date,items]of Object.entries(groups)){
     const dayInfo=getDayInfo(date);
     const dayLabel=dayInfo?`Dia ${dayInfo.d} - ${dayInfo.label}`:formatDate(date);
     const dayTotal=items.reduce((s,t)=>s+t.amount,0);
-
     html+=`<div class="tx-group-header"><span>${dayLabel}</span><span class="tx-group-total">${fmtDec(dayTotal)}</span></div>`;
-
     for(const t of items){
-      const cat=CATS.find(c=>c.key===t.category)||{icon:'📌',label:'Outros'};
-      html+=`<div class="tx-item">
-        <div class="tx-icon">${cat.icon}</div>
-        <div class="tx-info">
-          <div class="tx-cat">${cat.label}</div>
-          <div class="tx-note">${t.notes||'-'}</div>
-        </div>
-        <div class="tx-right">
-          <div class="tx-amt">${fmtDec(t.amount)}</div>
-          <span class="tx-pay ${t.payment}">${PAY_LABELS[t.payment]}</span>
-        </div>
-        <div class="tx-actions">
-          <button class="tx-act-btn tx-edit" onclick="editTransaction('${t.id}')">&#9998;</button>
-          <button class="tx-act-btn tx-del" onclick="askDelete('${t.id}')">&#10005;</button>
-        </div>
-      </div>`;
+      const cat=CATS.find(c=>c.key===t.category)||{icon:'\u{1F4CC}',label:'Outros'};
+      html+=`<div class="tx-item"><div class="tx-icon">${cat.icon}</div><div class="tx-info"><div class="tx-cat">${cat.label}</div><div class="tx-note">${t.notes||'-'}</div></div><div class="tx-right"><div class="tx-amt">${fmtDec(t.amount)}</div><span class="tx-pay ${t.payment}">${PAY_LABELS[t.payment]}</span></div><div class="tx-actions"><button class="tx-act-btn tx-edit" onclick="editTransaction('${t.id}')">&#9998;</button><button class="tx-act-btn tx-del" onclick="askDelete('${t.id}')">&#10005;</button></div></div>`;
     }
   }
   container.innerHTML=html;
 }
-
 function setFilter(f){activeFilter=f;renderList()}
 
 function askDelete(id){
-  deleteId=id;
-  const tx=state.transactions.find(t=>t.id===id);
+  deleteId=id;const tx=state.transactions.find(t=>t.id===id);
   const cat=CATS.find(c=>c.key===tx.category)||{label:'?'};
   document.getElementById('del-desc').textContent=`${cat.label}: ${fmtDec(tx.amount)} em ${formatDate(tx.date)}`;
   document.getElementById('modal-delete').classList.add('show');
 }
-
-function confirmDelete(){
-  state.transactions=state.transactions.filter(t=>t.id!==deleteId);
-  deleteId=null;
-  save();
-  closeModal('modal-delete');
-  renderAll();
-  showToast('Lancamento excluido');
-}
+function confirmDelete(){state.transactions=state.transactions.filter(t=>t.id!==deleteId);deleteId=null;save();closeModal('modal-delete');renderAll();showToast('Lancamento excluido')}
 
 // ═══ RENDER: Settings ═══
 function renderSettings(){
@@ -674,15 +659,12 @@ function renderSettings(){
   document.getElementById('e-fl').value=state.regionBudgets.florence;
   document.getElementById('e-to').value=state.regionBudgets.toscana;
   document.getElementById('e-ro').value=state.regionBudgets.roma;
-
-  // Category budget inputs
   const catSettingsEl=document.getElementById('settings-cats');
   catSettingsEl.innerHTML=CATS.map(c=>{
     return `<div class="edit-row"><span class="edit-label">${c.icon} ${c.label}</span><input class="edit-input" id="e-cat-${c.key}" type="number" value="${c.planned}"></div>`;
   }).join('');
 }
 
-// ═══ Settings ═══
 function saveSettings(){
   state.totalBudget=parseFloat(document.getElementById('e-total').value)||3000;
   state.carRental=parseFloat(document.getElementById('e-car').value)||412;
@@ -692,23 +674,15 @@ function saveSettings(){
   REGIONS.florence.planned=state.regionBudgets.florence;
   REGIONS.toscana.planned=state.regionBudgets.toscana;
   REGIONS.roma.planned=state.regionBudgets.roma;
-  // Category budgets
   if(!state.categoryBudgets)state.categoryBudgets={};
-  for(const c of CATS){
-    const el=document.getElementById('e-cat-'+c.key);
-    if(el){const v=parseFloat(el.value);c.planned=v||c.planned;state.categoryBudgets[c.key]=c.planned;}
-  }
+  for(const c of CATS){const el=document.getElementById('e-cat-'+c.key);if(el){const v=parseFloat(el.value);c.planned=v||c.planned;state.categoryBudgets[c.key]=c.planned;}}
   save();renderAll();showToast('Configuracoes salvas!');
 }
 
 function exportCSV(){
   let csv='\uFEFFData,Valor,Categoria,Pagamento,Regiao,Observacoes\n';
   const sorted=[...state.transactions].sort((a,b)=>a.date.localeCompare(b.date));
-  for(const t of sorted){
-    const cat=CATS.find(c=>c.key===t.category)||{label:'?'};
-    const reg=REGIONS[getRegion(t.date)]||{name:'?'};
-    csv+=`${formatDate(t.date)},${t.amount.toFixed(2)},${cat.label},${PAY_LABELS[t.payment]},${reg.name},"${(t.notes||'').replace(/"/g,'""')}"\n`;
-  }
+  for(const t of sorted){const cat=CATS.find(c=>c.key===t.category)||{label:'?'};const reg=REGIONS[getRegion(t.date)]||{name:'?'};csv+=`${formatDate(t.date)},${t.amount.toFixed(2)},${cat.label},${PAY_LABELS[t.payment]},${reg.name},"${(t.notes||'').replace(/"/g,'""')}"\n`;}
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Italy2026_Gastos.csv';a.click();
   showToast('CSV exportado!');
@@ -719,7 +693,7 @@ function closeModal(id){document.getElementById(id).classList.remove('show')}
 function resetAll(){state.transactions=[];save();closeModal('modal-reset');renderAll();showToast('Dados limpos')}
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
 
-// ═══ Navigation ═══
+// Navigation
 function switchTab(tab){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
@@ -729,258 +703,57 @@ function switchTab(tab){
   if(tab==='list')renderList();
   if(tab==='roteiro')renderRoteiro();
 }
+document.querySelectorAll('.nav-btn').forEach(btn=>{btn.addEventListener('click',()=>switchTab(btn.dataset.tab))});
 
-document.querySelectorAll('.nav-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>switchTab(btn.dataset.tab));
-});
-
-// ═══ Render All ═══
 function renderAll(){renderDash();renderList();renderSettings()}
 
 // ═══════════════════════════════════════
 // ROTEIRO DATA
 // ═══════════════════════════════════════
 const ITINERARY = [
-  {
-    day:0, date:'2026-02-17', label:'Ter 17/02', region:'transit',
-    title:'Partida do Brasil',
-    accommodation:null,
-    confirmed:[
-      {time:'17:50',type:'flight',desc:'Voo GRU \u2192 FCO',detail:'LATAM LA8170 | Chegada 18/02 as 09:10'}
-    ],
-    periods:[]
-  },
-  {
-    day:1, date:'2026-02-18', label:'Qua 18/02', region:'florence',
-    title:'Chegada na Italia \u2192 Florence',
-    accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},
-    confirmed:[
-      {time:'09:10',type:'flight',desc:'Chegada em Roma (FCO)',detail:'LATAM LA8170'},
-      {time:'12:55',type:'train',desc:'Trem Roma \u2192 Florence',detail:'Italo | Roma Termini \u2192 Firenze SMN'}
-    ],
-    periods:[
-      {name:'Tarde',items:['Check-in no Airbnb (Oltrarno)','Passeio leve: Piazza della Signoria','Palazzo Vecchio (de fora)']},
-      {name:'Noite',items:['Jantar cedo em trattoria do bairro']}
-    ],
-    note:'Dia de adaptacao ao fuso. Foco: descanso e aclimatacao.'
-  },
-  {
-    day:2, date:'2026-02-19', label:'Qui 19/02', region:'florence',
-    title:'Florence historica',
-    accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},
-    confirmed:[
-      {time:'19:00',type:'tour',desc:'Walking Tour Florence',detail:'Passeio guiado pelo centro historico'}
-    ],
-    periods:[
-      {name:'Manha',items:['Duomo de Florence (cupula de fora)','Batisterio de San Giovanni (Porta do Paraiso)','Piazza del Duomo','Mercato Centrale (mercado coberto)']},
-      {name:'Pausa',items:['Volta ao hotel: soneca, descanso']},
-      {name:'Fim de tarde',items:['Ponte Vecchio','Piazzale Michelangelo de taxi (vista panoramica)','Aperitivo em cafe local']}
-    ]
-  },
-  {
-    day:3, date:'2026-02-20', label:'Sex 20/02', region:'florence',
-    title:'Florence Oltrarno',
-    accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},
-    confirmed:[
-      {time:'11:00',type:'tour',desc:'Street Food Tour',detail:'Tour gastronomico pelas ruas de Florence'}
-    ],
-    periods:[
-      {name:'Manha',items:['Palazzo Pitti (ver de fora ou entrar brevemente)','Jardins Boboli (se o clima permitir)','Bairro de Santo Spirito: praca, artesaos']},
-      {name:'Pausa',items:['Volta ao hotel e descanso']},
-      {name:'Fim de tarde',items:['Santa Croce (igreja + praca)','Sorvete na Gelateria dei Neri','Jantar em trattoria do bairro']}
-    ],
-    note:'Plano B (tempo ruim): Galleria dell\'Accademia (David de Michelangelo), cafes e mercados cobertos.'
-  },
-  {
-    day:4, date:'2026-02-21', label:'Sab 21/02', region:'toscana',
-    title:'Florence \u2192 Toscana Rural',
-    accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
-    confirmed:[
-      {time:'09:00',type:'tour',desc:'Feira de Certaldo',detail:'Mercado/feira local em Certaldo'},
-      {time:'-',type:'car',desc:'Retirada do carro alugado',detail:'Alamo | Retirar fora do centro (evitar ZTL)'}
-    ],
-    periods:[
-      {name:'Manha',items:['Check-out de Florence','Retirada do carro fora do centro historico','Dirigir ate a base rural (~45min-1h)']},
-      {name:'Tarde',items:['Check-in no agriturismo/casa','Tarde livre: adaptar ao espaco','Compras no supermercado local']},
-      {name:'Noite',items:['Jantar na propria casa ou restaurante da vila']}
-    ]
-  },
-  {
-    day:5, date:'2026-02-22', label:'Dom 22/02', region:'toscana',
-    title:'Toscana: Vila Medieval',
-    accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
-    confirmed:[],
-    periods:[
-      {name:'Manha',items:['Passeio curto ate vila medieval proxima','Opcoes: San Gimignano (30min), Certaldo Alto, Panzano in Chianti','Caminhar pela vila historica','Cafe com vista']},
-      {name:'Almoco',items:['Almoco longo em trattoria local (2h = cultura italiana)']},
-      {name:'Tarde',items:['Retorno cedo para a base','Resto do dia na casa: lareira, jogos, descanso']}
-    ]
-  },
-  {
-    day:6, date:'2026-02-23', label:'Seg 23/02', region:'toscana',
-    title:'Toscana: Segundo passeio',
-    accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
-    confirmed:[
-      {time:'12:00',type:'restaurant',desc:'Officina della Bisteca',detail:'Restaurante famoso em Panzano in Chianti'}
-    ],
-    periods:[
-      {name:'Manha (opcional)',items:['Segunda vila ou vinicola light (~1h)','Degustacao de vinhos','Ou mercado local de domingo']},
-      {name:'Tarde',items:['Retorno a base antes do almoco','Tarde inteira de descanso']}
-    ],
-    note:'Se Clarice ou idosos estiverem cansados: pular passeio e ficar na base.'
-  },
-  {
-    day:7, date:'2026-02-24', label:'Ter 24/02', region:'toscana',
-    title:'Toscana: Dia de Descanso',
-    accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
-    confirmed:[],
-    periods:[
-      {name:'Dia inteiro',items:['Sem deslocamento obrigatorio','Ficar na casa: lareira, cozinhar juntos, jardim','Caminhar ate a vila mais proxima a pe','Compras no mercado local','Fotos, leitura, jogos']}
-    ],
-    note:'Objetivo: recarregar bateria antes de Roma. Manter rotina da Clarice.'
-  },
-  {
-    day:8, date:'2026-02-25', label:'Qua 25/02', region:'roma',
-    title:'Toscana \u2192 Roma',
-    accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
-    confirmed:[
-      {time:'-',type:'car',desc:'Devolucao do carro',detail:'Alamo | Devolver em ponto fora do centro de Florence'},
-      {time:'11:28',type:'train',desc:'Trem Florence \u2192 Roma',detail:'Italo | Firenze SMN \u2192 Roma Termini'}
-    ],
-    periods:[
-      {name:'Manha',items:['Check-out da base rural','Dirigir ate Florence (~45min-1h)','Devolucao do carro alugado']},
-      {name:'Tarde',items:['Chegada em Roma','Check-in no Airbnb (Trastevere)','Passeio leve pelo bairro','Jantar simples proximo ao hotel']}
-    ]
-  },
-  {
-    day:9, date:'2026-02-26', label:'Qui 26/02', region:'roma',
-    title:'Roma: Coliseu + Centro',
-    accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
-    confirmed:[
-      {time:'08:30',type:'ticket',desc:'Coliseu',detail:'Ingressos comprados | Horario marcado cedo'}
-    ],
-    periods:[
-      {name:'Manha',items:['Coliseu (estrategia: revezar com bebe)','Forum Romano (olhar de cima, Campidoglio)']},
-      {name:'Pausa',items:['Voltar pro hotel ou cafe tranquilo','Descanso geral']},
-      {name:'Fim de tarde',items:['Fontana di Trevi','Pantheon','Piazza Navona','Gelato na Giolitti']}
-    ]
-  },
-  {
-    day:10, date:'2026-02-27', label:'Sex 27/02', region:'roma',
-    title:'Roma: Vaticano',
-    accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
-    confirmed:[],
-    periods:[
-      {name:'Manha',items:['Basilica de Sao Pedro (entrada gratuita)','Piazza San Pietro (praca, fotos)','Opcional: Museus do Vaticano (revezar com bebe)']},
-      {name:'Pausa',items:['Volta pro hotel']},
-      {name:'Fim de tarde',items:['Castel Sant\'Angelo (de fora)','Caminhar pela beira do Rio Tibre','Jantar em Trastevere']}
-    ],
-    note:'Alternativa mais leve: Villa Borghese (parque), Piazza di Spagna, Via Condotti.'
-  },
-  {
-    day:11, date:'2026-02-28', label:'Sab 28/02', region:'roma',
-    title:'Roma: Dia Buffer',
-    accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
-    confirmed:[
-      {time:'20:00',type:'restaurant',desc:'Glass Hostaria (sugestao)',detail:'Restaurante em Trastevere | Jantar de despedida'}
-    ],
-    periods:[
-      {name:'Opcao A',items:['Revisitar o que mais gostaram','Voltar ao centro historico','Mais gelato, mais cafes']},
-      {name:'Opcao B',items:['Via del Corso (compras)','Mercado de Campo de\' Fiori']},
-      {name:'Opcao C',items:['Villa Borghese (parque)','Jardins do Gianicolo (vista panoramica)']},
-      {name:'Noite',items:['Arrumar malas devagar','Jantar de despedida em Roma']}
-    ]
-  },
-  {
-    day:12, date:'2026-03-01', label:'Dom 01/03', region:'roma',
-    title:'Volta para o Brasil',
-    accommodation:null,
-    confirmed:[
-      {time:'12:00',type:'flight',desc:'Voo FCO \u2192 GRU',detail:'LATAM LA8171 | Chegada 20:00 em Guarulhos'}
-    ],
-    periods:[
-      {name:'Manha',items:['Check-out sem pressa','Transfer/taxi ate aeroporto FCO (~30-40min)']}
-    ]
-  }
+  {day:0, date:'2026-02-17', label:'Ter 17/02', region:'transit',title:'Partida do Brasil',accommodation:null,confirmed:[{time:'17:50',type:'flight',desc:'Voo GRU \u2192 FCO',detail:'LATAM LA8170 | Chegada 18/02 as 09:10'}],periods:[]},
+  {day:1, date:'2026-02-18', label:'Qua 18/02', region:'florence',title:'Chegada na Italia \u2192 Florence',accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},confirmed:[{time:'09:10',type:'flight',desc:'Chegada em Roma (FCO)',detail:'LATAM LA8170'},{time:'12:55',type:'train',desc:'Trem Roma \u2192 Florence',detail:'Italo | Roma Termini \u2192 Firenze SMN'}],periods:[{name:'Tarde',items:['Check-in no Airbnb (Oltrarno)','Passeio leve: Piazza della Signoria','Palazzo Vecchio (de fora)']},{name:'Noite',items:['Jantar cedo em trattoria do bairro']}],note:'Dia de adaptacao ao fuso. Foco: descanso e aclimatacao.'},
+  {day:2, date:'2026-02-19', label:'Qui 19/02', region:'florence',title:'Florence historica',accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},confirmed:[{time:'19:00',type:'tour',desc:'Walking Tour Florence',detail:'Passeio guiado pelo centro historico'}],periods:[{name:'Manha',items:['Duomo de Florence (cupula de fora)','Batisterio de San Giovanni (Porta do Paraiso)','Piazza del Duomo','Mercato Centrale (mercado coberto)']},{name:'Pausa',items:['Volta ao hotel: soneca, descanso']},{name:'Fim de tarde',items:['Ponte Vecchio','Piazzale Michelangelo de taxi (vista panoramica)','Aperitivo em cafe local']}]},
+  {day:3, date:'2026-02-20', label:'Sex 20/02', region:'florence',title:'Florence Oltrarno',accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},confirmed:[{time:'11:00',type:'tour',desc:'Street Food Tour',detail:'Tour gastronomico pelas ruas de Florence'}],periods:[{name:'Manha',items:['Palazzo Pitti (ver de fora ou entrar brevemente)','Jardins Boboli (se o clima permitir)','Bairro de Santo Spirito: praca, artesaos']},{name:'Pausa',items:['Volta ao hotel e descanso']},{name:'Fim de tarde',items:['Santa Croce (igreja + praca)','Sorvete na Gelateria dei Neri','Jantar em trattoria do bairro']}],note:'Plano B (tempo ruim): Galleria dell\'Accademia (David de Michelangelo), cafes e mercados cobertos.'},
+  {day:4, date:'2026-02-21', label:'Sab 21/02', region:'toscana',title:'Florence \u2192 Toscana Rural',accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},confirmed:[{time:'09:00',type:'tour',desc:'Feira de Certaldo',detail:'Mercado/feira local em Certaldo'},{time:'-',type:'car',desc:'Retirada do carro alugado',detail:'Alamo | Retirar fora do centro (evitar ZTL)'}],periods:[{name:'Manha',items:['Check-out de Florence','Retirada do carro fora do centro historico','Dirigir ate a base rural (~45min-1h)']},{name:'Tarde',items:['Check-in no agriturismo/casa','Tarde livre: adaptar ao espaco','Compras no supermercado local']},{name:'Noite',items:['Jantar na propria casa ou restaurante da vila']}]},
+  {day:5, date:'2026-02-22', label:'Dom 22/02', region:'toscana',title:'Toscana: Vila Medieval',accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},confirmed:[],periods:[{name:'Manha',items:['Passeio curto ate vila medieval proxima','Opcoes: San Gimignano (30min), Certaldo Alto, Panzano in Chianti','Caminhar pela vila historica','Cafe com vista']},{name:'Almoco',items:['Almoco longo em trattoria local (2h = cultura italiana)']},{name:'Tarde',items:['Retorno cedo para a base','Resto do dia na casa: lareira, jogos, descanso']}]},
+  {day:6, date:'2026-02-23', label:'Seg 23/02', region:'toscana',title:'Toscana: Segundo passeio',accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},confirmed:[{time:'12:00',type:'restaurant',desc:'Officina della Bisteca',detail:'Restaurante famoso em Panzano in Chianti'}],periods:[{name:'Manha (opcional)',items:['Segunda vila ou vinicola light (~1h)','Degustacao de vinhos','Ou mercado local de domingo']},{name:'Tarde',items:['Retorno a base antes do almoco','Tarde inteira de descanso']}],note:'Se Clarice ou idosos estiverem cansados: pular passeio e ficar na base.'},
+  {day:7, date:'2026-02-24', label:'Ter 24/02', region:'toscana',title:'Toscana: Dia de Descanso',accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},confirmed:[],periods:[{name:'Dia inteiro',items:['Sem deslocamento obrigatorio','Ficar na casa: lareira, cozinhar juntos, jardim','Caminhar ate a vila mais proxima a pe','Compras no mercado local','Fotos, leitura, jogos']}],note:'Objetivo: recarregar bateria antes de Roma. Manter rotina da Clarice.'},
+  {day:8, date:'2026-02-25', label:'Qua 25/02', region:'roma',title:'Toscana \u2192 Roma',accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},confirmed:[{time:'-',type:'car',desc:'Devolucao do carro',detail:'Alamo | Devolver em ponto fora do centro de Florence'},{time:'11:28',type:'train',desc:'Trem Florence \u2192 Roma',detail:'Italo | Firenze SMN \u2192 Roma Termini'}],periods:[{name:'Manha',items:['Check-out da base rural','Dirigir ate Florence (~45min-1h)','Devolucao do carro alugado']},{name:'Tarde',items:['Chegada em Roma','Check-in no Airbnb (Trastevere)','Passeio leve pelo bairro','Jantar simples proximo ao hotel']}]},
+  {day:9, date:'2026-02-26', label:'Qui 26/02', region:'roma',title:'Roma: Coliseu + Centro',accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},confirmed:[{time:'08:30',type:'ticket',desc:'Coliseu',detail:'Ingressos comprados | Horario marcado cedo'}],periods:[{name:'Manha',items:['Coliseu (estrategia: revezar com bebe)','Forum Romano (olhar de cima, Campidoglio)']},{name:'Pausa',items:['Voltar pro hotel ou cafe tranquilo','Descanso geral']},{name:'Fim de tarde',items:['Fontana di Trevi','Pantheon','Piazza Navona','Gelato na Giolitti']}]},
+  {day:10, date:'2026-02-27', label:'Sex 27/02', region:'roma',title:'Roma: Vaticano',accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},confirmed:[],periods:[{name:'Manha',items:['Basilica de Sao Pedro (entrada gratuita)','Piazza San Pietro (praca, fotos)','Opcional: Museus do Vaticano (revezar com bebe)']},{name:'Pausa',items:['Volta pro hotel']},{name:'Fim de tarde',items:['Castel Sant\'Angelo (de fora)','Caminhar pela beira do Rio Tibre','Jantar em Trastevere']}],note:'Alternativa mais leve: Villa Borghese (parque), Piazza di Spagna, Via Condotti.'},
+  {day:11, date:'2026-02-28', label:'Sab 28/02', region:'roma',title:'Roma: Dia Buffer',accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},confirmed:[{time:'20:00',type:'restaurant',desc:'Glass Hostaria (sugestao)',detail:'Restaurante em Trastevere | Jantar de despedida'}],periods:[{name:'Opcao A',items:['Revisitar o que mais gostaram','Voltar ao centro historico','Mais gelato, mais cafes']},{name:'Opcao B',items:['Via del Corso (compras)','Mercado de Campo de\' Fiori']},{name:'Opcao C',items:['Villa Borghese (parque)','Jardins do Gianicolo (vista panoramica)']},{name:'Noite',items:['Arrumar malas devagar','Jantar de despedida em Roma']}]},
+  {day:12, date:'2026-03-01', label:'Dom 01/03', region:'roma',title:'Volta para o Brasil',accommodation:null,confirmed:[{time:'12:00',type:'flight',desc:'Voo FCO \u2192 GRU',detail:'LATAM LA8171 | Chegada 20:00 em Guarulhos'}],periods:[{name:'Manha',items:['Check-out sem pressa','Transfer/taxi ate aeroporto FCO (~30-40min)']}]}
 ];
 
-// ═══ RENDER: Roteiro ═══
+// RENDER: Roteiro
 function renderRoteiro(){
   const container=document.getElementById('rot-container');
   const today=new Date().toISOString().slice(0,10);
-
   let html='';
   for(const day of ITINERARY){
     const isToday=day.date===today;
     const regionClass=day.region||'transit';
     const openClass=isToday?' open':'';
     const dayLabel=day.day===0?'':day.day;
-
     html+=`<div class="rot-day${openClass}" id="rot-${day.day}">`;
     html+=`<div class="rot-day-header" onclick="toggleDay(${day.day})">`;
     html+=`<div class="rot-day-num ${regionClass}">${dayLabel||'&#9992;'}</div>`;
     html+=`<div class="rot-day-info"><div class="rot-day-title">${day.title}</div><div class="rot-day-sub">${day.label}${day.region?' | '+REGIONS[day.region]?.name||'':''}</div></div>`;
-    html+=`<div class="rot-day-arrow">&#9660;</div>`;
-    html+=`</div>`;
-
+    html+=`<div class="rot-day-arrow">&#9660;</div></div>`;
     html+=`<div class="rot-day-body">`;
-
-    // Accommodation
-    if(day.accommodation){
-      const addr=day.accommodation.address;
-      const mapsUrl='https://maps.google.com/?q='+encodeURIComponent(addr);
-      html+=`<div class="rot-address" onclick="window.open('${mapsUrl}','_blank')">`;
-      html+=`<span class="rot-addr-icon">&#127968;</span>`;
-      html+=`<span class="rot-addr-text"><strong>${day.accommodation.name}</strong><br>${addr}</span>`;
-      html+=`<span class="rot-addr-link">Maps &#8599;</span>`;
-      html+=`</div>`;
-    }
-
-    // Confirmed items
-    if(day.confirmed.length>0){
-      html+=`<div class="rot-section"><div class="rot-section-title">Compromissos confirmados</div>`;
-      for(const c of day.confirmed){
-        const badgeClass=c.type;
-        const badgeLabels={flight:'Voo',train:'Trem',tour:'Tour',restaurant:'Reserva',car:'Carro',ticket:'Ingresso'};
-        html+=`<div class="rot-item">`;
-        html+=`<div class="rot-time">${c.time}</div>`;
-        html+=`<div class="rot-item-content"><div class="rot-item-title">${c.desc}<span class="rot-badge ${badgeClass}">${badgeLabels[c.type]||c.type}</span></div>`;
-        html+=`<div class="rot-item-detail">${c.detail}</div></div>`;
-        html+=`</div>`;
-      }
-      html+=`</div>`;
-    }
-
-    // Suggested periods
-    if(day.periods.length>0){
-      html+=`<div class="rot-section"><div class="rot-section-title">Sugestao de roteiro</div>`;
-      for(const p of day.periods){
-        html+=`<div class="rot-period">${p.name}</div>`;
-        html+=`<div class="rot-suggest">`;
-        for(const item of p.items){
-          html+=`<div class="rot-suggest-item">\u2022 ${item}</div>`;
-        }
-        html+=`</div>`;
-      }
-      html+=`</div>`;
-    }
-
-    // Note
-    if(day.note){
-      html+=`<div class="rot-note"><strong>Nota:</strong> ${day.note}</div>`;
-    }
-
+    if(day.accommodation){const addr=day.accommodation.address;const mapsUrl='https://maps.google.com/?q='+encodeURIComponent(addr);html+=`<div class="rot-address" onclick="window.open('${mapsUrl}','_blank')"><span class="rot-addr-icon">&#127968;</span><span class="rot-addr-text"><strong>${day.accommodation.name}</strong><br>${addr}</span><span class="rot-addr-link">Maps &#8599;</span></div>`;}
+    if(day.confirmed.length>0){html+=`<div class="rot-section"><div class="rot-section-title">Compromissos confirmados</div>`;for(const c of day.confirmed){const badgeLabels={flight:'Voo',train:'Trem',tour:'Tour',restaurant:'Reserva',car:'Carro',ticket:'Ingresso'};html+=`<div class="rot-item"><div class="rot-time">${c.time}</div><div class="rot-item-content"><div class="rot-item-title">${c.desc}<span class="rot-badge ${c.type}">${badgeLabels[c.type]||c.type}</span></div><div class="rot-item-detail">${c.detail}</div></div></div>`;}html+=`</div>`;}
+    if(day.periods.length>0){html+=`<div class="rot-section"><div class="rot-section-title">Sugestao de roteiro</div>`;for(const p of day.periods){html+=`<div class="rot-period">${p.name}</div><div class="rot-suggest">`;for(const item of p.items){html+=`<div class="rot-suggest-item">\u2022 ${item}</div>`;}html+=`</div>`;}html+=`</div>`;}
+    if(day.note){html+=`<div class="rot-note"><strong>Nota:</strong> ${day.note}</div>`;}
     html+=`</div></div>`;
   }
   container.innerHTML=html;
 }
 
-function toggleDay(dayNum){
-  const el=document.getElementById('rot-'+dayNum);
-  if(el)el.classList.toggle('open');
-}
+function toggleDay(dayNum){const el=document.getElementById('rot-'+dayNum);if(el)el.classList.toggle('open')}
 
-// ═══ Init ═══
+// Init
 load();
 renderForm();
 renderAll();
