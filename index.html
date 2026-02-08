@@ -152,6 +152,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .empty{text-align:center;padding:40px 20px;color:var(--text-light)}
 .empty .ei{font-size:40px;margin-bottom:8px} .empty .et{font-size:14px;font-weight:600;color:var(--text-med)} .empty .es{font-size:12px;margin-top:4px}
 
+/* ── Roteiro Tab ── */
+.rot-day{background:var(--card);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+.rot-day-header{display:flex;align-items:center;padding:12px 14px;cursor:pointer;gap:10px;-webkit-user-select:none;user-select:none}
+.rot-day-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
+.rot-day-num.florence{background:var(--florence-a)} .rot-day-num.toscana{background:var(--toscana-a)} .rot-day-num.roma{background:var(--roma-a)} .rot-day-num.transit{background:var(--navy)}
+.rot-day-info{flex:1;min-width:0}
+.rot-day-title{font-size:14px;font-weight:700;color:var(--text)} .rot-day-sub{font-size:11px;color:var(--text-light);margin-top:1px}
+.rot-day-arrow{font-size:12px;color:var(--text-light);transition:transform .3s;flex-shrink:0}
+.rot-day.open .rot-day-arrow{transform:rotate(180deg)}
+.rot-day-body{display:none;padding:0 14px 14px;border-top:1px solid #F0F0F0}
+.rot-day.open .rot-day-body{display:block}
+
+.rot-section{margin-top:10px}
+.rot-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-light);margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.rot-section-title::before{content:'';flex:0 0 3px;height:3px;border-radius:2px;background:var(--accent)}
+
+.rot-item{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #F8F8F8;align-items:flex-start}
+.rot-item:last-child{border-bottom:0}
+.rot-time{font-size:11px;font-weight:700;color:var(--navy);min-width:42px;flex-shrink:0;padding-top:1px}
+.rot-item-content{flex:1;min-width:0}
+.rot-item-title{font-size:13px;font-weight:600;color:var(--text)}
+.rot-item-detail{font-size:11px;color:var(--text-light);margin-top:1px}
+.rot-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px;vertical-align:middle}
+.rot-badge.flight{background:#E3F2FD;color:#1565C0} .rot-badge.train{background:#FFF3E0;color:#E65100}
+.rot-badge.tour{background:#F3E5F5;color:#7B1FA2} .rot-badge.restaurant{background:#FCE4EC;color:#C62828}
+.rot-badge.car{background:#E8F5E9;color:#2E7D32} .rot-badge.ticket{background:#FFF8E1;color:#F57F17}
+
+.rot-address{display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:12px;color:var(--text-med);cursor:pointer;-webkit-user-select:all;user-select:all}
+.rot-address .rot-addr-icon{font-size:16px;flex-shrink:0}
+.rot-address .rot-addr-text{flex:1}
+.rot-address .rot-addr-link{font-size:10px;color:var(--accent);font-weight:600;flex-shrink:0;text-decoration:none}
+
+.rot-suggest{padding:5px 0 5px 8px;border-left:2px solid var(--light-blue);margin:3px 0}
+.rot-suggest-item{font-size:12px;color:var(--text-med);padding:2px 0;line-height:1.4}
+
+.rot-period{font-size:11px;font-weight:700;color:var(--accent);margin:8px 0 4px;display:flex;align-items:center;gap:4px}
+.rot-period::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+.rot-note{background:var(--yellow-light);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:11px;color:var(--text-med);line-height:1.4}
+.rot-note strong{color:var(--text)}
+
 @media(max-width:380px){.big-num .amt{font-size:34px} .kpi .v{font-size:17px} .cat-pills{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
@@ -268,11 +309,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   </div>
 </div>
 
+<!-- ═══ TAB: ROTEIRO ═══ -->
+<div id="tab-roteiro" class="tab-content">
+  <div id="rot-container"></div>
+</div>
+
 <!-- ═══ Bottom Nav ═══ -->
 <nav class="bottom-nav">
   <button class="nav-btn active" data-tab="dash"><span class="ico">&#128202;</span>Dashboard</button>
-  <button class="nav-btn" data-tab="list"><span class="ico">&#128203;</span>Lancamentos</button>
+  <button class="nav-btn" data-tab="roteiro"><span class="ico">&#128506;</span>Roteiro</button>
   <button class="nav-btn add-btn" data-tab="add"><span class="ico">+</span>Lancar</button>
+  <button class="nav-btn" data-tab="list"><span class="ico">&#128203;</span>Lancamentos</button>
   <button class="nav-btn" data-tab="summary"><span class="ico">&#128200;</span>Resumo</button>
 </nav>
 
@@ -621,6 +668,7 @@ function switchTab(tab){
   document.getElementById('tab-'+tab).classList.add('active');
   if(tab==='summary')renderSummary();
   if(tab==='list')renderList();
+  if(tab==='roteiro')renderRoteiro();
 }
 
 document.querySelectorAll('.nav-btn').forEach(btn=>{
@@ -629,6 +677,249 @@ document.querySelectorAll('.nav-btn').forEach(btn=>{
 
 // ═══ Render All ═══
 function renderAll(){renderDash();renderList();renderSummary()}
+
+// ═══════════════════════════════════════
+// ROTEIRO DATA
+// ═══════════════════════════════════════
+const ITINERARY = [
+  {
+    day:0, date:'2026-02-17', label:'Seg 17/02', region:'transit',
+    title:'Partida do Brasil',
+    accommodation:null,
+    confirmed:[
+      {time:'17:50',type:'flight',desc:'Voo GRU \u2192 FCO',detail:'LATAM LA8170 | Chegada 18/02 as 09:10'}
+    ],
+    periods:[]
+  },
+  {
+    day:1, date:'2026-02-18', label:'Ter 18/02', region:'florence',
+    title:'Chegada na Italia \u2192 Florence',
+    accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},
+    confirmed:[
+      {time:'09:10',type:'flight',desc:'Chegada em Roma (FCO)',detail:'LATAM LA8170'},
+      {time:'12:55',type:'train',desc:'Trem Roma \u2192 Florence',detail:'Italo | Roma Termini \u2192 Firenze SMN'}
+    ],
+    periods:[
+      {name:'Tarde',items:['Check-in no Airbnb (Oltrarno)','Passeio leve: Piazza della Signoria','Palazzo Vecchio (de fora)']},
+      {name:'Noite',items:['Jantar cedo em trattoria do bairro']}
+    ],
+    note:'Dia de adaptacao ao fuso. Foco: descanso e aclimatacao.'
+  },
+  {
+    day:2, date:'2026-02-19', label:'Qua 19/02', region:'florence',
+    title:'Florence historica',
+    accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},
+    confirmed:[
+      {time:'19:00',type:'tour',desc:'Walking Tour Florence',detail:'Passeio guiado pelo centro historico'}
+    ],
+    periods:[
+      {name:'Manha',items:['Duomo de Florence (cupula de fora)','Batisterio de San Giovanni (Porta do Paraiso)','Piazza del Duomo','Mercato Centrale (mercado coberto)']},
+      {name:'Pausa',items:['Volta ao hotel: soneca, descanso']},
+      {name:'Fim de tarde',items:['Ponte Vecchio','Piazzale Michelangelo de taxi (vista panoramica)','Aperitivo em cafe local']}
+    ]
+  },
+  {
+    day:3, date:'2026-02-20', label:'Qui 20/02', region:'florence',
+    title:'Florence Oltrarno',
+    accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},
+    confirmed:[
+      {time:'11:00',type:'tour',desc:'Street Food Tour',detail:'Tour gastronomico pelas ruas de Florence'}
+    ],
+    periods:[
+      {name:'Manha',items:['Palazzo Pitti (ver de fora ou entrar brevemente)','Jardins Boboli (se o clima permitir)','Bairro de Santo Spirito: praca, artesaos']},
+      {name:'Pausa',items:['Volta ao hotel e descanso']},
+      {name:'Fim de tarde',items:['Santa Croce (igreja + praca)','Sorvete na Gelateria dei Neri','Jantar em trattoria do bairro']}
+    ],
+    note:'Plano B (tempo ruim): Galleria dell\'Accademia (David de Michelangelo), cafes e mercados cobertos.'
+  },
+  {
+    day:4, date:'2026-02-21', label:'Sex 21/02', region:'toscana',
+    title:'Florence \u2192 Toscana Rural',
+    accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
+    confirmed:[
+      {time:'09:00',type:'tour',desc:'Feira de Certaldo',detail:'Mercado/feira local em Certaldo'},
+      {time:'-',type:'car',desc:'Retirada do carro alugado',detail:'Alamo | Retirar fora do centro (evitar ZTL)'}
+    ],
+    periods:[
+      {name:'Manha',items:['Check-out de Florence','Retirada do carro fora do centro historico','Dirigir ate a base rural (~45min-1h)']},
+      {name:'Tarde',items:['Check-in no agriturismo/casa','Tarde livre: adaptar ao espaco','Compras no supermercado local']},
+      {name:'Noite',items:['Jantar na propria casa ou restaurante da vila']}
+    ]
+  },
+  {
+    day:5, date:'2026-02-22', label:'Sab 22/02', region:'toscana',
+    title:'Toscana: Vila Medieval',
+    accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
+    confirmed:[],
+    periods:[
+      {name:'Manha',items:['Passeio curto ate vila medieval proxima','Opcoes: San Gimignano (30min), Certaldo Alto, Panzano in Chianti','Caminhar pela vila historica','Cafe com vista']},
+      {name:'Almoco',items:['Almoco longo em trattoria local (2h = cultura italiana)']},
+      {name:'Tarde',items:['Retorno cedo para a base','Resto do dia na casa: lareira, jogos, descanso']}
+    ]
+  },
+  {
+    day:6, date:'2026-02-23', label:'Dom 23/02', region:'toscana',
+    title:'Toscana: Segundo passeio',
+    accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
+    confirmed:[
+      {time:'12:00',type:'restaurant',desc:'Officina della Bisteca',detail:'Restaurante famoso em Panzano in Chianti'}
+    ],
+    periods:[
+      {name:'Manha (opcional)',items:['Segunda vila ou vinicola light (~1h)','Degustacao de vinhos','Ou mercado local de domingo']},
+      {name:'Tarde',items:['Retorno a base antes do almoco','Tarde inteira de descanso']}
+    ],
+    note:'Se Clarice ou idosos estiverem cansados: pular passeio e ficar na base.'
+  },
+  {
+    day:7, date:'2026-02-24', label:'Seg 24/02', region:'toscana',
+    title:'Toscana: Dia de Descanso',
+    accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
+    confirmed:[],
+    periods:[
+      {name:'Dia inteiro',items:['Sem deslocamento obrigatorio','Ficar na casa: lareira, cozinhar juntos, jardim','Caminhar ate a vila mais proxima a pe','Compras no mercado local','Fotos, leitura, jogos']}
+    ],
+    note:'Objetivo: recarregar bateria antes de Roma. Manter rotina da Clarice.'
+  },
+  {
+    day:8, date:'2026-02-25', label:'Ter 25/02', region:'roma',
+    title:'Toscana \u2192 Roma',
+    accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
+    confirmed:[
+      {time:'-',type:'car',desc:'Devolucao do carro',detail:'Alamo | Devolver em ponto fora do centro de Florence'},
+      {time:'11:28',type:'train',desc:'Trem Florence \u2192 Roma',detail:'Italo | Firenze SMN \u2192 Roma Termini'}
+    ],
+    periods:[
+      {name:'Manha',items:['Check-out da base rural','Dirigir ate Florence (~45min-1h)','Devolucao do carro alugado']},
+      {name:'Tarde',items:['Chegada em Roma','Check-in no Airbnb (Trastevere)','Passeio leve pelo bairro','Jantar simples proximo ao hotel']}
+    ]
+  },
+  {
+    day:9, date:'2026-02-26', label:'Qua 26/02', region:'roma',
+    title:'Roma: Coliseu + Centro',
+    accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
+    confirmed:[
+      {time:'08:30',type:'ticket',desc:'Coliseu',detail:'Ingressos comprados | Horario marcado cedo'}
+    ],
+    periods:[
+      {name:'Manha',items:['Coliseu (estrategia: revezar com bebe)','Forum Romano (olhar de cima, Campidoglio)']},
+      {name:'Pausa',items:['Voltar pro hotel ou cafe tranquilo','Descanso geral']},
+      {name:'Fim de tarde',items:['Fontana di Trevi','Pantheon','Piazza Navona','Gelato na Giolitti']}
+    ]
+  },
+  {
+    day:10, date:'2026-02-27', label:'Qui 27/02', region:'roma',
+    title:'Roma: Vaticano',
+    accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
+    confirmed:[],
+    periods:[
+      {name:'Manha',items:['Basilica de Sao Pedro (entrada gratuita)','Piazza San Pietro (praca, fotos)','Opcional: Museus do Vaticano (revezar com bebe)']},
+      {name:'Pausa',items:['Volta pro hotel']},
+      {name:'Fim de tarde',items:['Castel Sant\'Angelo (de fora)','Caminhar pela beira do Rio Tibre','Jantar em Trastevere']}
+    ],
+    note:'Alternativa mais leve: Villa Borghese (parque), Piazza di Spagna, Via Condotti.'
+  },
+  {
+    day:11, date:'2026-02-28', label:'Sex 28/02', region:'roma',
+    title:'Roma: Dia Buffer',
+    accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
+    confirmed:[
+      {time:'20:00',type:'restaurant',desc:'Glass Hostaria (sugestao)',detail:'Restaurante em Trastevere | Jantar de despedida'}
+    ],
+    periods:[
+      {name:'Opcao A',items:['Revisitar o que mais gostaram','Voltar ao centro historico','Mais gelato, mais cafes']},
+      {name:'Opcao B',items:['Via del Corso (compras)','Mercado de Campo de\' Fiori']},
+      {name:'Opcao C',items:['Villa Borghese (parque)','Jardins do Gianicolo (vista panoramica)']},
+      {name:'Noite',items:['Arrumar malas devagar','Jantar de despedida em Roma']}
+    ]
+  },
+  {
+    day:12, date:'2026-03-01', label:'Sab 01/03', region:'roma',
+    title:'Volta para o Brasil',
+    accommodation:null,
+    confirmed:[
+      {time:'12:00',type:'flight',desc:'Voo FCO \u2192 GRU',detail:'LATAM LA8171 | Chegada 20:00 em Guarulhos'}
+    ],
+    periods:[
+      {name:'Manha',items:['Check-out sem pressa','Transfer/taxi ate aeroporto FCO (~30-40min)']}
+    ]
+  }
+];
+
+// ═══ RENDER: Roteiro ═══
+function renderRoteiro(){
+  const container=document.getElementById('rot-container');
+  const today=new Date().toISOString().slice(0,10);
+
+  let html='';
+  for(const day of ITINERARY){
+    const isToday=day.date===today;
+    const regionClass=day.region||'transit';
+    const openClass=isToday?' open':'';
+    const dayLabel=day.day===0?'':day.day;
+
+    html+=`<div class="rot-day${openClass}" id="rot-${day.day}">`;
+    html+=`<div class="rot-day-header" onclick="toggleDay(${day.day})">`;
+    html+=`<div class="rot-day-num ${regionClass}">${dayLabel||'&#9992;'}</div>`;
+    html+=`<div class="rot-day-info"><div class="rot-day-title">${day.title}</div><div class="rot-day-sub">${day.label}${day.region?' | '+REGIONS[day.region]?.name||'':''}</div></div>`;
+    html+=`<div class="rot-day-arrow">&#9660;</div>`;
+    html+=`</div>`;
+
+    html+=`<div class="rot-day-body">`;
+
+    // Accommodation
+    if(day.accommodation){
+      const addr=day.accommodation.address;
+      const mapsUrl='https://maps.google.com/?q='+encodeURIComponent(addr);
+      html+=`<div class="rot-address" onclick="window.open('${mapsUrl}','_blank')">`;
+      html+=`<span class="rot-addr-icon">&#127968;</span>`;
+      html+=`<span class="rot-addr-text"><strong>${day.accommodation.name}</strong><br>${addr}</span>`;
+      html+=`<span class="rot-addr-link">Maps &#8599;</span>`;
+      html+=`</div>`;
+    }
+
+    // Confirmed items
+    if(day.confirmed.length>0){
+      html+=`<div class="rot-section"><div class="rot-section-title">Compromissos confirmados</div>`;
+      for(const c of day.confirmed){
+        const badgeClass=c.type;
+        const badgeLabels={flight:'Voo',train:'Trem',tour:'Tour',restaurant:'Reserva',car:'Carro',ticket:'Ingresso'};
+        html+=`<div class="rot-item">`;
+        html+=`<div class="rot-time">${c.time}</div>`;
+        html+=`<div class="rot-item-content"><div class="rot-item-title">${c.desc}<span class="rot-badge ${badgeClass}">${badgeLabels[c.type]||c.type}</span></div>`;
+        html+=`<div class="rot-item-detail">${c.detail}</div></div>`;
+        html+=`</div>`;
+      }
+      html+=`</div>`;
+    }
+
+    // Suggested periods
+    if(day.periods.length>0){
+      html+=`<div class="rot-section"><div class="rot-section-title">Sugestao de roteiro</div>`;
+      for(const p of day.periods){
+        html+=`<div class="rot-period">${p.name}</div>`;
+        html+=`<div class="rot-suggest">`;
+        for(const item of p.items){
+          html+=`<div class="rot-suggest-item">\u2022 ${item}</div>`;
+        }
+        html+=`</div>`;
+      }
+      html+=`</div>`;
+    }
+
+    // Note
+    if(day.note){
+      html+=`<div class="rot-note"><strong>Nota:</strong> ${day.note}</div>`;
+    }
+
+    html+=`</div></div>`;
+  }
+  container.innerHTML=html;
+}
+
+function toggleDay(dayNum){
+  const el=document.getElementById('rot-'+dayNum);
+  if(el)el.classList.toggle('open');
+}
 
 // ═══ Init ═══
 load();
