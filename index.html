@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Italy 2026 | Budget Tracker</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇮🇹</text></svg>">
+<style>
+:root {
+  --navy:#1B2A4A; --blue:#2D4A7A; --accent:#5B9BD5; --light-blue:#D6E4F0;
+  --green:#27AE60; --green-light:#E8F5E9; --yellow:#F39C12; --yellow-light:#FFF8E1;
+  --red:#E74C3C; --red-light:#FFEBEE; --orange:#E67E22;
+  --text:#1A1A1A; --text-med:#4A4A4A; --text-light:#7A7A7A;
+  --border:#E0E0E0; --bg:#F5F7FA; --card:#FFF;
+  --florence:#FFF3E0; --florence-a:#E67E22;
+  --toscana:#F1F8E9; --toscana-a:#43A047;
+  --roma:#FBE9E7; --roma-a:#E53935;
+  --radius:12px; --shadow:0 2px 8px rgba(0,0,0,.08); --shadow-lg:0 4px 16px rgba(0,0,0,.12);
+  --wise:#00B9FF; --aeternum:#8B5CF6; --dinheiro:#27AE60;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;padding-bottom:70px}
+
+/* ── Top Bar ── */
+.top-bar{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:14px 20px 10px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow-lg)}
+.top-bar h1{font-size:17px;font-weight:700;letter-spacing:.5px}
+.top-bar .sub{font-size:11px;opacity:.7;margin-top:1px}
+
+/* ── Bottom Nav ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -2px 8px rgba(0,0,0,.06);padding-bottom:env(safe-area-inset-bottom)}
+.nav-btn{flex:1;padding:8px 4px 6px;border:none;background:0;font-size:10px;font-weight:600;color:var(--text-light);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:.2s}
+.nav-btn.active{color:var(--accent)}
+.nav-btn .ico{font-size:20px;line-height:1}
+.nav-btn.add-btn .ico{width:36px;height:36px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;margin-top:-16px;box-shadow:0 2px 8px rgba(91,155,213,.4)}
+
+.tab-content{display:none;padding:14px;max-width:600px;margin:0 auto}
+.tab-content.active{display:block}
+
+/* ── Shared ── */
+.card{background:var(--card);border-radius:var(--radius);padding:14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-light);margin-bottom:10px}
+.big-num{text-align:center;padding:16px 0}
+.big-num .amt{font-size:40px;font-weight:800;line-height:1}
+.big-num .lbl{font-size:12px;color:var(--text-light);margin-top:3px}
+.big-num.ok .amt{color:var(--green)} .big-num.warn .amt{color:var(--yellow)} .big-num.bad .amt{color:var(--red)}
+.progress-bg{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:10px 0 4px}
+.progress-fill{height:100%;border-radius:4px;transition:width .5s,background .3s}
+.progress-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--text-light)}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kpi{background:var(--bg);border-radius:8px;padding:10px;text-align:center}
+.kpi .v{font-size:20px;font-weight:700;color:var(--navy)} .kpi .l{font-size:10px;color:var(--text-light);margin-top:1px}
+.region-bar{display:flex;align-items:center;padding:10px;border-radius:8px;margin-bottom:6px}
+.region-bar .ri{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-right:10px;flex-shrink:0;color:#fff}
+.region-bar .rn{font-weight:600;font-size:13px} .region-bar .rd{font-size:10px;color:var(--text-light)}
+.region-bar .ra{font-weight:700;font-size:15px;text-align:right} .region-bar .rb{font-size:10px;color:var(--text-light);text-align:right}
+.rf{background:var(--florence)} .rf .ri{background:var(--florence-a)}
+.rt{background:var(--toscana)} .rt .ri{background:var(--toscana-a)}
+.rr{background:var(--roma)} .rr .ri{background:var(--roma-a)}
+
+/* ── Form ── */
+.form-group{margin-bottom:14px}
+.form-label{font-size:12px;font-weight:600;color:var(--text-med);margin-bottom:6px;display:block}
+.form-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:inherit;background:var(--bg);color:var(--text);transition:.2s;-webkit-appearance:none}
+.form-input:focus{outline:0;border-color:var(--accent);background:#fff}
+.form-input.big{font-size:28px;font-weight:700;text-align:center;color:var(--navy);padding:16px}
+.region-badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px;margin-top:4px}
+.region-badge.florence{background:var(--florence);color:var(--florence-a)}
+.region-badge.toscana{background:var(--toscana);color:var(--toscana-a)}
+.region-badge.roma{background:var(--roma);color:var(--roma-a)}
+
+/* Category Pills */
+.cat-pills{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.cat-pill{padding:10px 4px;border:2px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;text-align:center;transition:.2s;-webkit-user-select:none;user-select:none}
+.cat-pill .ci{font-size:20px;display:block} .cat-pill .cl{font-size:9px;color:var(--text-light);margin-top:2px;display:block}
+.cat-pill.sel{border-color:var(--accent);background:var(--light-blue)}
+.cat-pill:active{transform:scale(.95)}
+
+/* Payment Pills */
+.pay-pills{display:flex;gap:6px}
+.pay-pill{flex:1;padding:10px 8px;border:2px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;text-align:center;font-size:12px;font-weight:600;transition:.2s;-webkit-user-select:none;user-select:none}
+.pay-pill.sel-wise{border-color:var(--wise);background:#E0F4FF;color:var(--wise)}
+.pay-pill.sel-aeternum{border-color:var(--aeternum);background:#F0E8FF;color:var(--aeternum)}
+.pay-pill.sel-dinheiro{border-color:var(--dinheiro);background:var(--green-light);color:var(--dinheiro)}
+.pay-pill:active{transform:scale(.95)}
+
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
+.btn-primary{background:var(--accent);color:#fff} .btn-primary:active{background:var(--blue)}
+.btn-outline{background:#fff;color:var(--text-med);border:1.5px solid var(--border)} .btn-outline:active{background:var(--bg)}
+.btn-danger{background:var(--red-light);color:var(--red)} .btn-danger:active{background:#FFCDD2}
+.btn-sm{padding:8px 14px;font-size:12px;width:auto;display:inline-block;border-radius:8px}
+
+/* ── Transaction List ── */
+.tx-group-header{font-size:11px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;padding:10px 4px 6px;display:flex;justify-content:space-between;align-items:center}
+.tx-group-total{font-weight:700;color:var(--navy);font-size:13px}
+.tx-item{display:flex;align-items:center;background:var(--card);border-radius:10px;padding:10px 12px;margin-bottom:6px;box-shadow:var(--shadow);gap:10px}
+.tx-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--bg);flex-shrink:0}
+.tx-info{flex:1;min-width:0}
+.tx-cat{font-size:13px;font-weight:600} .tx-note{font-size:11px;color:var(--text-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-right{text-align:right;flex-shrink:0}
+.tx-amt{font-weight:700;font-size:15px;color:var(--navy)}
+.tx-pay{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;display:inline-block;margin-top:2px}
+.tx-pay.wise{background:#E0F4FF;color:var(--wise)} .tx-pay.aeternum{background:#F0E8FF;color:var(--aeternum)} .tx-pay.dinheiro{background:var(--green-light);color:var(--dinheiro)}
+.tx-actions{display:flex;gap:4px;margin-left:4px;flex-shrink:0}
+.tx-act-btn{width:28px;height:28px;border:none;border-radius:6px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center}
+.tx-edit{background:var(--light-blue);color:var(--accent)} .tx-del{background:var(--red-light);color:var(--red)}
+
+/* ── Filters ── */
+.filter-row{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.filter-chip{padding:6px 12px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);font-size:11px;font-weight:600;color:var(--text-med);cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0}
+.filter-chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ── Summary ── */
+.cat-row{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid #F5F5F5}
+.cat-row:last-child{border-bottom:0}
+.cat-row .ci2{font-size:16px;width:28px;text-align:center;flex-shrink:0}
+.cat-row .cn{flex:1;margin-left:6px}
+.cat-row .cn .nm{font-size:12px;font-weight:600} .cat-row .cn .bar-bg{height:4px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}
+.cat-row .cn .bar-fill{height:100%;border-radius:2px;transition:width .5s}
+.cat-row .ca{text-align:right;flex-shrink:0} .cat-row .ca .av{font-weight:700;font-size:13px} .cat-row .ca .pv{font-size:10px;color:var(--text-light)}
+
+/* Payment Summary */
+.pay-summary{display:flex;gap:8px;margin-top:8px}
+.pay-card{flex:1;padding:10px;border-radius:8px;text-align:center}
+.pay-card .pv2{font-size:18px;font-weight:700} .pay-card .pl2{font-size:10px;margin-top:2px}
+.pay-wise{background:#E0F4FF;color:var(--wise)} .pay-aeternum{background:#F0E8FF;color:var(--aeternum)} .pay-din{background:var(--green-light);color:var(--dinheiro)}
+
+/* ── Paid Items ── */
+.paid-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #F5F5F5;font-size:12px}
+.paid-item:last-child{border-bottom:0}
+.paid-badge{font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--green-light);color:var(--green)}
+
+/* ── Settings ── */
+.edit-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #F5F5F5}
+.edit-row:last-child{border-bottom:0}
+.edit-label{font-size:13px;font-weight:500}
+.edit-input{width:90px;padding:8px;border:1.5px solid var(--border);border-radius:8px;text-align:right;font-size:14px;font-weight:600;font-family:inherit;-webkit-appearance:none}
+.edit-input:focus{outline:0;border-color:var(--accent)}
+
+/* ── Modal ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:var(--radius);padding:20px;max-width:340px;width:100%;text-align:center}
+.modal h3{font-size:15px;margin-bottom:6px} .modal p{font-size:12px;color:var(--text-light);margin-bottom:14px}
+.modal-btns{display:flex;gap:8px}
+.modal-btns .btn{flex:1}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--navy);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:300;transition:transform .3s;box-shadow:var(--shadow-lg)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── Empty State ── */
+.empty{text-align:center;padding:40px 20px;color:var(--text-light)}
+.empty .ei{font-size:40px;margin-bottom:8px} .empty .et{font-size:14px;font-weight:600;color:var(--text-med)} .empty .es{font-size:12px;margin-top:4px}
+
+@media(max-width:380px){.big-num .amt{font-size:34px} .kpi .v{font-size:17px} .cat-pills{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>Italy 2026</h1>
+  <div class="sub">18 Fev - 01 Mar | Budget Tracker</div>
+</div>
+
+<!-- ═══ TAB: DASHBOARD ═══ -->
+<div id="tab-dash" class="tab-content active">
+  <div class="card">
+    <div class="big-num" id="hero"><div class="amt" id="hero-amt">€2.588</div><div class="lbl">Saldo disponivel</div></div>
+    <div class="progress-bg"><div class="progress-fill" id="prog-fill" style="width:0%;background:var(--green)"></div></div>
+    <div class="progress-lbl"><span id="prog-spent">€0 gasto</span><span id="prog-total">de €2.588</span></div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="v" id="k-avg">€0</div><div class="l">Media/dia</div></div>
+    <div class="kpi"><div class="v" id="k-days">12</div><div class="l">Dias restantes</div></div>
+    <div class="kpi"><div class="v" id="k-avail">€216</div><div class="l">Disponivel/dia</div></div>
+    <div class="kpi"><div class="v" id="k-pct">0%</div><div class="l">% utilizado</div></div>
+  </div>
+  <div class="card" style="margin-top:10px">
+    <div class="card-title">Gastos por Regiao</div>
+    <div class="region-bar rf"><div class="ri">&#127974;</div><div style="flex:1"><div class="rn">Florence</div><div class="rd">18-20 Fev (3 dias)</div></div><div><div class="ra" id="r-fl">€0</div><div class="rb" id="r-fl-b">de €500</div></div></div>
+    <div class="region-bar rt"><div class="ri">&#127815;</div><div style="flex:1"><div class="rn">Toscana</div><div class="rd">21-24 Fev (4 dias)</div></div><div><div class="ra" id="r-to">€0</div><div class="rb" id="r-to-b">de €560</div></div></div>
+    <div class="region-bar rr"><div class="ri">&#127951;</div><div style="flex:1"><div class="rn">Roma</div><div class="rd">25 Fev-01 Mar (5 dias)</div></div><div><div class="ra" id="r-ro">€0</div><div class="rb" id="r-ro-b">de €900</div></div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Gastos por Forma de Pagamento</div>
+    <div class="pay-summary">
+      <div class="pay-card pay-wise"><div class="pv2" id="pay-w">€0</div><div class="pl2">Wise</div></div>
+      <div class="pay-card pay-aeternum"><div class="pv2" id="pay-a">€0</div><div class="pl2">Aeternum</div></div>
+      <div class="pay-card pay-din"><div class="pv2" id="pay-d">€0</div><div class="pl2">Dinheiro</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Ja pago (referencia)</div>
+    <div class="paid-item"><span>Airbnb Florence (Oltrarno)</span><span class="paid-badge">Pago</span></div>
+    <div class="paid-item"><span>Airbnb Toscana (Barberino)</span><span class="paid-badge">Pago</span></div>
+    <div class="paid-item"><span>Airbnb Roma (Trastevere)</span><span class="paid-badge">Pago</span></div>
+    <div class="paid-item"><span>Trem Roma-Florence-Roma</span><span class="paid-badge">Pago</span></div>
+    <div class="paid-item"><span>Coliseu (ingressos)</span><span class="paid-badge">Pago</span></div>
+    <div class="paid-item"><span>Aluguel carro Alamo (€412)</span><span class="paid-badge" style="background:var(--yellow-light);color:var(--orange)">No local</span></div>
+  </div>
+</div>
+
+<!-- ═══ TAB: ADD EXPENSE ═══ -->
+<div id="tab-add" class="tab-content">
+  <div class="card">
+    <div class="card-title" id="form-title">Novo Lancamento</div>
+    <div class="form-group">
+      <label class="form-label">Data</label>
+      <input type="date" class="form-input" id="f-date">
+      <div id="f-region-badge" style="margin-top:4px"></div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Valor (EUR)</label>
+      <input type="number" inputmode="decimal" step="0.01" class="form-input big" id="f-amount" placeholder="0,00">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Categoria</label>
+      <div class="cat-pills" id="f-cats"></div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Forma de Pagamento</label>
+      <div class="pay-pills" id="f-pays">
+        <div class="pay-pill sel-wise" data-pay="wise" onclick="selectPay('wise')">Wise</div>
+        <div class="pay-pill" data-pay="aeternum" onclick="selectPay('aeternum')">Aeternum</div>
+        <div class="pay-pill" data-pay="dinheiro" onclick="selectPay('dinheiro')">Dinheiro</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Observacoes</label>
+      <input type="text" class="form-input" id="f-notes" placeholder="Ex: Trattoria da Luigi, almoço...">
+    </div>
+    <button class="btn btn-primary" id="f-save" onclick="saveTransaction()">Salvar</button>
+    <button class="btn btn-outline" id="f-cancel" onclick="cancelEdit()" style="margin-top:8px;display:none">Cancelar edicao</button>
+  </div>
+</div>
+
+<!-- ═══ TAB: TRANSACTIONS ═══ -->
+<div id="tab-list" class="tab-content">
+  <div class="filter-row" id="filters"></div>
+  <div id="tx-container"></div>
+</div>
+
+<!-- ═══ TAB: SUMMARY ═══ -->
+<div id="tab-summary" class="tab-content">
+  <div class="card">
+    <div class="card-title">Gastos por Categoria</div>
+    <div id="sum-cats"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Gastos por Regiao</div>
+    <div id="sum-regs"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Configuracoes do Budget</div>
+    <div class="edit-row"><span class="edit-label">Budget total (caixa)</span><input class="edit-input" id="e-total" type="number" value="3000"></div>
+    <div class="edit-row"><span class="edit-label">Aluguel carro</span><input class="edit-input" id="e-car" type="number" value="412"></div>
+    <div class="edit-row" style="border-top:1px solid var(--border);padding-top:10px"><span class="edit-label">Florence (plan.)</span><input class="edit-input" id="e-fl" type="number" value="500"></div>
+    <div class="edit-row"><span class="edit-label">Toscana (plan.)</span><input class="edit-input" id="e-to" type="number" value="560"></div>
+    <div class="edit-row"><span class="edit-label">Roma (plan.)</span><input class="edit-input" id="e-ro" type="number" value="900"></div>
+    <button class="btn btn-primary" onclick="saveSettings()" style="margin-top:12px">Salvar configuracoes</button>
+  </div>
+  <div class="card">
+    <div class="card-title">Dados</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-outline" onclick="exportCSV()" style="flex:1">Exportar CSV</button>
+      <button class="btn btn-danger" onclick="confirmReset()" style="flex:1">Limpar tudo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Bottom Nav ═══ -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-tab="dash"><span class="ico">&#128202;</span>Dashboard</button>
+  <button class="nav-btn" data-tab="list"><span class="ico">&#128203;</span>Lancamentos</button>
+  <button class="nav-btn add-btn" data-tab="add"><span class="ico">+</span>Lancar</button>
+  <button class="nav-btn" data-tab="summary"><span class="ico">&#128200;</span>Resumo</button>
+</nav>
+
+<!-- ═══ Modals ═══ -->
+<div class="modal-bg" id="modal-reset"><div class="modal"><h3>Limpar todos os dados?</h3><p>Remove todos os lancamentos. Nao pode ser desfeito.</p><div class="modal-btns"><button class="btn btn-outline" onclick="closeModal('modal-reset')">Cancelar</button><button class="btn btn-danger" onclick="resetAll()">Confirmar</button></div></div></div>
+<div class="modal-bg" id="modal-delete"><div class="modal"><h3>Excluir lancamento?</h3><p id="del-desc"></p><div class="modal-btns"><button class="btn btn-outline" onclick="closeModal('modal-delete')">Cancelar</button><button class="btn btn-danger" onclick="confirmDelete()">Excluir</button></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════
+// DATA MODEL
+// ═══════════════════════════════════════
+const CATS = [
+  {key:'food',     label:'Alimentacao',      icon:'🍝', planned:780},
+  {key:'market',   label:'Supermercado',      icon:'🛒', planned:180},
+  {key:'transport',label:'Transporte',        icon:'🚕', planned:160},
+  {key:'gas',      label:'Gasolina/Pedagio',  icon:'⛽', planned:100},
+  {key:'activity', label:'Atividades',        icon:'🎟️', planned:160},
+  {key:'shopping', label:'Compras',           icon:'🛍️', planned:160},
+  {key:'other',    label:'Outros',            icon:'📌', planned:220},
+];
+
+const DAYS = [
+  {d:1, dt:'2026-02-18',label:'18/02 Ter',region:'florence',act:'Chegada + Passeio leve'},
+  {d:2, dt:'2026-02-19',label:'19/02 Qua',region:'florence',act:'Duomo, Mercato, Ponte Vecchio'},
+  {d:3, dt:'2026-02-20',label:'20/02 Qui',region:'florence',act:'Oltrarno, Boboli, Santa Croce'},
+  {d:4, dt:'2026-02-21',label:'21/02 Sex',region:'toscana', act:'Florence > Toscana, Feira'},
+  {d:5, dt:'2026-02-22',label:'22/02 Sab',region:'toscana', act:'Vila medieval, San Gimignano'},
+  {d:6, dt:'2026-02-23',label:'23/02 Dom',region:'toscana', act:'Vinicola, Bisteca'},
+  {d:7, dt:'2026-02-24',label:'24/02 Seg',region:'toscana', act:'Dia de descanso'},
+  {d:8, dt:'2026-02-25',label:'25/02 Ter',region:'roma',    act:'Toscana > Roma (trem)'},
+  {d:9, dt:'2026-02-26',label:'26/02 Qua',region:'roma',    act:'Coliseu, Trevi, Pantheon'},
+  {d:10,dt:'2026-02-27',label:'27/02 Qui',region:'roma',    act:'Vaticano, Trastevere'},
+  {d:11,dt:'2026-02-28',label:'28/02 Sex',region:'roma',    act:'Dia buffer, compras'},
+  {d:12,dt:'2026-03-01',label:'01/03 Sab',region:'roma',    act:'Voo de volta'},
+];
+
+const REGIONS = {
+  florence:{name:'Florence',planned:500},
+  toscana: {name:'Toscana', planned:560},
+  roma:    {name:'Roma',    planned:900},
+};
+
+const PAYS = ['wise','aeternum','dinheiro'];
+const PAY_LABELS = {wise:'Wise',aeternum:'Aeternum',dinheiro:'Dinheiro'};
+
+let state = {totalBudget:3000, carRental:412, regionBudgets:{florence:500,toscana:560,roma:900}, transactions:[]};
+let editingId = null;
+let deleteId = null;
+let activeFilter = 'all';
+
+// ═══ Persistence ═══
+function load(){try{const s=localStorage.getItem('italy2026_v2');if(s){const p=JSON.parse(s);state={...state,...p};REGIONS.florence.planned=state.regionBudgets.florence;REGIONS.toscana.planned=state.regionBudgets.toscana;REGIONS.roma.planned=state.regionBudgets.roma;for(const c of CATS){if(state.categoryBudgets&&state.categoryBudgets[c.key])c.planned=state.categoryBudgets[c.key]}}}catch(e){}}
+function save(){try{localStorage.setItem('italy2026_v2',JSON.stringify(state))}catch(e){}}
+
+// ═══ Helpers ═══
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function getAvail(){return state.totalBudget-state.carRental}
+function getRegion(date){const day=DAYS.find(d=>d.dt===date);return day?day.region:'roma'}
+function getDayInfo(date){return DAYS.find(d=>d.dt===date)}
+function fmt(n){return '€'+Math.round(n).toLocaleString('pt-BR')}
+function fmtDec(n){return '€'+n.toFixed(2).replace('.',',')}
+function formatDate(d){const[y,m,dd]=d.split('-');return dd+'/'+m}
+
+function totalSpent(){return state.transactions.reduce((s,t)=>s+t.amount,0)}
+function regionSpent(r){return state.transactions.filter(t=>getRegion(t.date)===r).reduce((s,t)=>s+t.amount,0)}
+function catSpent(c){return state.transactions.filter(t=>t.category===c).reduce((s,t)=>s+t.amount,0)}
+function paySpent(p){return state.transactions.filter(t=>t.payment===p).reduce((s,t)=>s+t.amount,0)}
+function daysWithSpending(){const dates=new Set(state.transactions.map(t=>t.date));return dates.size}
+
+function todayDate(){
+  const now=new Date();
+  const tripStart=new Date('2026-02-18');const tripEnd=new Date('2026-03-01');
+  if(now>=tripStart&&now<=tripEnd)return now.toISOString().slice(0,10);
+  return '2026-02-18';
+}
+
+// ═══ RENDER: Dashboard ═══
+function renderDash(){
+  const avail=getAvail(),spent=totalSpent(),saldo=avail-spent;
+  const pct=avail>0?(spent/avail)*100:0;
+  const hero=document.getElementById('hero');
+  hero.className='big-num '+(saldo<0?'bad':pct>80?'warn':'ok');
+  document.getElementById('hero-amt').textContent=fmt(saldo);
+  document.getElementById('prog-fill').style.width=Math.min(pct,100)+'%';
+  document.getElementById('prog-fill').style.background=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--green)';
+  document.getElementById('prog-spent').textContent=fmt(spent)+' gasto';
+  document.getElementById('prog-total').textContent='de '+fmt(avail);
+
+  const ds=daysWithSpending(),dl=12-ds;
+  const avg=ds>0?spent/ds:0;
+  const da=dl>0?saldo/dl:saldo;
+  document.getElementById('k-avg').textContent=fmt(avg);
+  document.getElementById('k-days').textContent=dl;
+  document.getElementById('k-avail').textContent=fmt(da);
+  document.getElementById('k-avail').style.color=da<150?'var(--red)':da<200?'var(--yellow)':'var(--navy)';
+  document.getElementById('k-pct').textContent=Math.round(pct)+'%';
+
+  document.getElementById('r-fl').textContent=fmt(regionSpent('florence'));
+  document.getElementById('r-to').textContent=fmt(regionSpent('toscana'));
+  document.getElementById('r-ro').textContent=fmt(regionSpent('roma'));
+  document.getElementById('r-fl-b').textContent='de '+fmt(state.regionBudgets.florence);
+  document.getElementById('r-to-b').textContent='de '+fmt(state.regionBudgets.toscana);
+  document.getElementById('r-ro-b').textContent='de '+fmt(state.regionBudgets.roma);
+
+  document.getElementById('pay-w').textContent=fmt(paySpent('wise'));
+  document.getElementById('pay-a').textContent=fmt(paySpent('aeternum'));
+  document.getElementById('pay-d').textContent=fmt(paySpent('dinheiro'));
+}
+
+// ═══ RENDER: Form ═══
+function renderForm(){
+  const catsEl=document.getElementById('f-cats');
+  catsEl.innerHTML=CATS.map(c=>`<div class="cat-pill" data-cat="${c.key}" onclick="selectCat('${c.key}')"><span class="ci">${c.icon}</span><span class="cl">${c.label}</span></div>`).join('');
+  document.getElementById('f-date').value=todayDate();
+  updateRegionBadge();
+  document.getElementById('f-date').addEventListener('change',updateRegionBadge);
+}
+
+function updateRegionBadge(){
+  const date=document.getElementById('f-date').value;
+  const day=getDayInfo(date);
+  const el=document.getElementById('f-region-badge');
+  if(day){
+    const r=day.region;
+    el.innerHTML=`<span class="region-badge ${r}">Dia ${day.d} | ${REGIONS[r].name} | ${day.act}</span>`;
+  }else{
+    el.innerHTML='<span class="region-badge" style="background:#eee;color:var(--text-light)">Fora do roteiro</span>';
+  }
+}
+
+function selectCat(key){
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('sel'));
+  document.querySelector(`.cat-pill[data-cat="${key}"]`).classList.add('sel');
+}
+
+function selectPay(key){
+  document.querySelectorAll('.pay-pill').forEach(p=>{p.className='pay-pill';});
+  document.querySelector(`.pay-pill[data-pay="${key}"]`).classList.add('sel-'+key);
+}
+
+function getSelectedCat(){const el=document.querySelector('.cat-pill.sel');return el?el.dataset.cat:null}
+function getSelectedPay(){const el=document.querySelector('.pay-pill[class*="sel-"]');if(!el)return'wise';return el.dataset.pay}
+
+function saveTransaction(){
+  const date=document.getElementById('f-date').value;
+  const amount=parseFloat(document.getElementById('f-amount').value);
+  const cat=getSelectedCat();
+  const pay=getSelectedPay();
+  const notes=document.getElementById('f-notes').value.trim();
+
+  if(!date){showToast('Selecione a data');return}
+  if(!amount||amount<=0){showToast('Informe o valor');return}
+  if(!cat){showToast('Selecione a categoria');return}
+
+  if(editingId){
+    const tx=state.transactions.find(t=>t.id===editingId);
+    if(tx){tx.date=date;tx.amount=amount;tx.category=cat;tx.payment=pay;tx.notes=notes}
+    editingId=null;
+    document.getElementById('form-title').textContent='Novo Lancamento';
+    document.getElementById('f-cancel').style.display='none';
+    document.getElementById('f-save').textContent='Salvar';
+    showToast('Lancamento atualizado!');
+  }else{
+    state.transactions.push({id:uid(),date,amount,category:cat,payment:pay,notes});
+    showToast('Lancamento salvo!');
+  }
+
+  save();
+  resetForm();
+  renderAll();
+  document.getElementById('f-amount').focus();
+}
+
+function resetForm(){
+  document.getElementById('f-amount').value='';
+  document.getElementById('f-notes').value='';
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('sel'));
+  selectPay('wise');
+  document.getElementById('f-date').value=todayDate();
+  updateRegionBadge();
+}
+
+function editTransaction(id){
+  const tx=state.transactions.find(t=>t.id===id);
+  if(!tx)return;
+  editingId=id;
+  switchTab('add');
+  document.getElementById('f-date').value=tx.date;
+  document.getElementById('f-amount').value=tx.amount;
+  selectCat(tx.category);
+  selectPay(tx.payment);
+  document.getElementById('f-notes').value=tx.notes||'';
+  updateRegionBadge();
+  document.getElementById('form-title').textContent='Editar Lancamento';
+  document.getElementById('f-cancel').style.display='block';
+  document.getElementById('f-save').textContent='Atualizar';
+  window.scrollTo(0,0);
+}
+
+function cancelEdit(){
+  editingId=null;
+  document.getElementById('form-title').textContent='Novo Lancamento';
+  document.getElementById('f-cancel').style.display='none';
+  document.getElementById('f-save').textContent='Salvar';
+  resetForm();
+}
+
+// ═══ RENDER: Transaction List ═══
+function renderList(){
+  // Filters
+  const filEl=document.getElementById('filters');
+  const filters=[{k:'all',l:'Todos'},{k:'florence',l:'Florence'},{k:'toscana',l:'Toscana'},{k:'roma',l:'Roma'},...PAYS.map(p=>({k:'pay:'+p,l:PAY_LABELS[p]}))];
+  filEl.innerHTML=filters.map(f=>`<div class="filter-chip${activeFilter===f.k?' active':''}" onclick="setFilter('${f.k}')">${f.l}</div>`).join('');
+
+  const container=document.getElementById('tx-container');
+  let txs=[...state.transactions].sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id));
+
+  // Apply filter
+  if(activeFilter!=='all'){
+    if(activeFilter.startsWith('pay:'))txs=txs.filter(t=>t.payment===activeFilter.slice(4));
+    else txs=txs.filter(t=>getRegion(t.date)===activeFilter);
+  }
+
+  if(txs.length===0){
+    container.innerHTML=`<div class="empty"><div class="ei">📋</div><div class="et">Nenhum lancamento</div><div class="es">Toque em "+" para adicionar</div></div>`;
+    return;
+  }
+
+  // Group by date
+  const groups={};
+  txs.forEach(t=>{if(!groups[t.date])groups[t.date]=[];groups[t.date].push(t)});
+
+  let html='';
+  for(const[date,items]of Object.entries(groups)){
+    const dayInfo=getDayInfo(date);
+    const dayLabel=dayInfo?`Dia ${dayInfo.d} - ${dayInfo.label}`:formatDate(date);
+    const dayTotal=items.reduce((s,t)=>s+t.amount,0);
+    const regionClass=dayInfo?dayInfo.region:'';
+
+    html+=`<div class="tx-group-header"><span>${dayLabel}</span><span class="tx-group-total">${fmtDec(dayTotal)}</span></div>`;
+
+    for(const t of items){
+      const cat=CATS.find(c=>c.key===t.category)||{icon:'📌',label:'Outros'};
+      html+=`<div class="tx-item">
+        <div class="tx-icon">${cat.icon}</div>
+        <div class="tx-info">
+          <div class="tx-cat">${cat.label}</div>
+          <div class="tx-note">${t.notes||'-'}</div>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amt">${fmtDec(t.amount)}</div>
+          <span class="tx-pay ${t.payment}">${PAY_LABELS[t.payment]}</span>
+        </div>
+        <div class="tx-actions">
+          <button class="tx-act-btn tx-edit" onclick="editTransaction('${t.id}')">&#9998;</button>
+          <button class="tx-act-btn tx-del" onclick="askDelete('${t.id}')">&#10005;</button>
+        </div>
+      </div>`;
+    }
+  }
+  container.innerHTML=html;
+}
+
+function setFilter(f){activeFilter=f;renderList()}
+
+function askDelete(id){
+  deleteId=id;
+  const tx=state.transactions.find(t=>t.id===id);
+  const cat=CATS.find(c=>c.key===tx.category)||{label:'?'};
+  document.getElementById('del-desc').textContent=`${cat.label}: ${fmtDec(tx.amount)} em ${formatDate(tx.date)}`;
+  document.getElementById('modal-delete').classList.add('show');
+}
+
+function confirmDelete(){
+  state.transactions=state.transactions.filter(t=>t.id!==deleteId);
+  deleteId=null;
+  save();
+  closeModal('modal-delete');
+  renderAll();
+  showToast('Lancamento excluido');
+}
+
+// ═══ RENDER: Summary ═══
+function renderSummary(){
+  const catsEl=document.getElementById('sum-cats');
+  catsEl.innerHTML=CATS.map(c=>{
+    const actual=catSpent(c.key);
+    const pct=c.planned>0?Math.min((actual/c.planned)*100,100):0;
+    const col=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--accent)';
+    return `<div class="cat-row"><span class="ci2">${c.icon}</span><div class="cn"><div class="nm">${c.label}</div><div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="ca"><div class="av">${fmt(actual)}</div><div class="pv">de ${fmt(c.planned)}</div></div></div>`;
+  }).join('');
+
+  const regsEl=document.getElementById('sum-regs');
+  regsEl.innerHTML=Object.entries(REGIONS).map(([k,v])=>{
+    const actual=regionSpent(k);
+    const pct=v.planned>0?Math.min((actual/v.planned)*100,100):0;
+    const diff=v.planned-actual;
+    const col=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--accent)';
+    return `<div class="cat-row"><div class="cn"><div class="nm">${v.name}</div><div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="ca"><div class="av">${fmt(actual)}</div><div class="pv">${diff>=0?fmt(diff)+' restam':fmt(-diff)+' acima'}</div></div></div>`;
+  }).join('');
+
+  document.getElementById('e-total').value=state.totalBudget;
+  document.getElementById('e-car').value=state.carRental;
+  document.getElementById('e-fl').value=state.regionBudgets.florence;
+  document.getElementById('e-to').value=state.regionBudgets.toscana;
+  document.getElementById('e-ro').value=state.regionBudgets.roma;
+}
+
+// ═══ Settings ═══
+function saveSettings(){
+  state.totalBudget=parseFloat(document.getElementById('e-total').value)||3000;
+  state.carRental=parseFloat(document.getElementById('e-car').value)||412;
+  state.regionBudgets.florence=parseFloat(document.getElementById('e-fl').value)||500;
+  state.regionBudgets.toscana=parseFloat(document.getElementById('e-to').value)||560;
+  state.regionBudgets.roma=parseFloat(document.getElementById('e-ro').value)||900;
+  REGIONS.florence.planned=state.regionBudgets.florence;
+  REGIONS.toscana.planned=state.regionBudgets.toscana;
+  REGIONS.roma.planned=state.regionBudgets.roma;
+  save();renderAll();showToast('Configuracoes salvas!');
+}
+
+function exportCSV(){
+  let csv='\uFEFFData,Valor,Categoria,Pagamento,Regiao,Observacoes\n';
+  const sorted=[...state.transactions].sort((a,b)=>a.date.localeCompare(b.date));
+  for(const t of sorted){
+    const cat=CATS.find(c=>c.key===t.category)||{label:'?'};
+    const reg=REGIONS[getRegion(t.date)]||{name:'?'};
+    csv+=`${formatDate(t.date)},${t.amount.toFixed(2)},${cat.label},${PAY_LABELS[t.payment]},${reg.name},"${(t.notes||'').replace(/"/g,'""')}"\n`;
+  }
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Italy2026_Gastos.csv';a.click();
+  showToast('CSV exportado!');
+}
+
+function confirmReset(){document.getElementById('modal-reset').classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function resetAll(){state.transactions=[];save();closeModal('modal-reset');renderAll();showToast('Dados limpos')}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+// ═══ Navigation ═══
+function switchTab(tab){
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`.nav-btn[data-tab="${tab}"]`).classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+  if(tab==='summary')renderSummary();
+  if(tab==='list')renderList();
+}
+
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>switchTab(btn.dataset.tab));
+});
+
+// ═══ Render All ═══
+function renderAll(){renderDash();renderList();renderSummary()}
+
+// ═══ Init ═══
+load();
+renderForm();
+renderAll();
+</script>
+</body>
+</html>
