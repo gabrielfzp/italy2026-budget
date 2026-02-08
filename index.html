@@ -361,13 +361,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Rounded','SF Pro Displ
 // DATA MODEL
 // ═══════════════════════════════════════
 const CATS = [
-  {key:'food',     label:'Alimentacao',      icon:'\u{1F35D}', planned:780},
-  {key:'market',   label:'Supermercado',      icon:'\u{1F6D2}', planned:180},
-  {key:'transport',label:'Transporte',        icon:'\u{1F695}', planned:160},
-  {key:'gas',      label:'Gasolina/Pedagio',  icon:'\u26FD', planned:100},
-  {key:'activity', label:'Atividades',        icon:'\u{1F39F}\uFE0F', planned:160},
-  {key:'shopping', label:'Compras',           icon:'\u{1F6CD}\uFE0F', planned:160},
-  {key:'other',    label:'Outros',            icon:'\u{1F4CC}', planned:220},
+  {key:'food',     label:'Alimentacao',      icon:'\u{1F35D}', planned:850},
+  {key:'market',   label:'Supermercado',      icon:'\u{1F6D2}', planned:200},
+  {key:'transport',label:'Transporte',        icon:'\u{1F695}', planned:180},
+  {key:'gas',      label:'Gasolina/Pedagio',  icon:'\u26FD', planned:120},
+  {key:'activity', label:'Atividades',        icon:'\u{1F39F}\uFE0F', planned:300},
+  {key:'shopping', label:'Compras',           icon:'\u{1F6CD}\uFE0F', planned:500},
+  {key:'other',    label:'Outros',            icon:'\u{1F4CC}', planned:438},
 ];
 
 const DAYS = [
@@ -386,15 +386,15 @@ const DAYS = [
 ];
 
 const REGIONS = {
-  florence:{name:'Florence',planned:500},
-  toscana: {name:'Toscana', planned:560},
-  roma:    {name:'Roma',    planned:900},
+  florence:{name:'Florence',planned:600},
+  toscana: {name:'Toscana', planned:700},
+  roma:    {name:'Roma',    planned:1288},
 };
 
 const PAYS = ['wise','aeternum','dinheiro'];
 const PAY_LABELS = {wise:'Wise',aeternum:'Aeternum',dinheiro:'Dinheiro'};
 
-let state = {totalBudget:3000, carRental:412, regionBudgets:{florence:500,toscana:560,roma:900}, transactions:[]};
+let state = {totalBudget:3000, carRental:412, regionBudgets:{florence:600,toscana:700,roma:1288}, transactions:[]};
 let editingId = null;
 let deleteId = null;
 let activeFilter = 'all';
@@ -668,9 +668,9 @@ function renderSettings(){
 function saveSettings(){
   state.totalBudget=parseFloat(document.getElementById('e-total').value)||3000;
   state.carRental=parseFloat(document.getElementById('e-car').value)||412;
-  state.regionBudgets.florence=parseFloat(document.getElementById('e-fl').value)||500;
-  state.regionBudgets.toscana=parseFloat(document.getElementById('e-to').value)||560;
-  state.regionBudgets.roma=parseFloat(document.getElementById('e-ro').value)||900;
+  state.regionBudgets.florence=parseFloat(document.getElementById('e-fl').value)||600;
+  state.regionBudgets.toscana=parseFloat(document.getElementById('e-to').value)||700;
+  state.regionBudgets.roma=parseFloat(document.getElementById('e-ro').value)||1288;
   REGIONS.florence.planned=state.regionBudgets.florence;
   REGIONS.toscana.planned=state.regionBudgets.toscana;
   REGIONS.roma.planned=state.regionBudgets.roma;
