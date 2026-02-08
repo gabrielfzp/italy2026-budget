@@ -3,149 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0B0F1A">
 <title>Italy 2026 | Budget Tracker</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇮🇹</text></svg>">
 <style>
 :root {
-  --navy:#1B2A4A; --blue:#2D4A7A; --accent:#5B9BD5; --light-blue:#D6E4F0;
-  --green:#27AE60; --green-light:#E8F5E9; --yellow:#F39C12; --yellow-light:#FFF8E1;
-  --red:#E74C3C; --red-light:#FFEBEE; --orange:#E67E22;
-  --text:#1A1A1A; --text-med:#4A4A4A; --text-light:#7A7A7A;
-  --border:#E0E0E0; --bg:#F5F7FA; --card:#FFF;
-  --florence:#FFF3E0; --florence-a:#E67E22;
-  --toscana:#F1F8E9; --toscana-a:#43A047;
-  --roma:#FBE9E7; --roma-a:#E53935;
-  --radius:12px; --shadow:0 2px 8px rgba(0,0,0,.08); --shadow-lg:0 4px 16px rgba(0,0,0,.12);
-  --wise:#00B9FF; --aeternum:#8B5CF6; --dinheiro:#27AE60;
+  /* ── Dark Fintech Palette ── */
+  --bg:#0B0F1A; --bg2:#111827; --bg3:#1E293B;
+  --card:rgba(15,23,42,0.72); --card-solid:#0F172A; --card-hover:rgba(30,41,59,0.5);
+  --glass-border:rgba(255,255,255,0.06);
+
+  /* Accent */
+  --accent:#06B6D4; --accent2:#8B5CF6;
+  --accent-grad:linear-gradient(135deg,#06B6D4,#8B5CF6);
+  --accent-glow:rgba(6,182,212,0.2); --accent-glow2:rgba(139,92,246,0.15);
+  --light-blue:rgba(6,182,212,0.1);
+
+  /* Legacy mappings */
+  --navy:#E2E8F0; --blue:#1E3A5F;
+
+  /* Status */
+  --green:#10B981; --green-light:rgba(16,185,129,0.12);
+  --yellow:#F59E0B; --yellow-light:rgba(245,158,11,0.1);
+  --red:#EF4444; --red-light:rgba(239,68,68,0.1);
+  --orange:#F97316;
+
+  /* Text */
+  --text:#F1F5F9; --text-med:#94A3B8; --text-light:#64748B;
+
+  /* Border */
+  --border:rgba(255,255,255,0.08);
+
+  /* Regions */
+  --florence:rgba(251,146,60,0.08); --florence-a:#FB923C;
+  --toscana:rgba(34,197,94,0.08); --toscana-a:#22C55E;
+  --roma:rgba(248,113,113,0.08); --roma-a:#F87171;
+
+  /* Payment */
+  --wise:#38BDF8; --aeternum:#A78BFA; --dinheiro:#34D399;
+
+  /* Effects */
+  --radius:16px;
+  --shadow:0 4px 24px rgba(0,0,0,0.3);
+  --shadow-lg:0 8px 40px rgba(0,0,0,0.5);
 }
+
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;padding-bottom:70px}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;padding-bottom:76px}
 
 /* ── Top Bar ── */
-.top-bar{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:14px 20px 10px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow-lg)}
-.top-bar h1{font-size:17px;font-weight:700;letter-spacing:.5px}
-.top-bar .sub{font-size:11px;opacity:.7;margin-top:1px}
+.top-bar{background:linear-gradient(180deg,rgba(15,23,42,0.95) 0%,rgba(11,15,26,0.9) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);color:#fff;padding:16px 20px 12px;position:sticky;top:0;z-index:100}
+.top-bar h1{font-size:18px;font-weight:800;letter-spacing:.3px;background:var(--accent-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.top-bar .sub{font-size:11px;color:var(--text-light);margin-top:2px;font-weight:500}
 
 /* ── Bottom Nav ── */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);display:flex;z-index:100;box-shadow:0 -2px 8px rgba(0,0,0,.06);padding-bottom:env(safe-area-inset-bottom)}
-.nav-btn{flex:1;padding:8px 4px 6px;border:none;background:0;font-size:10px;font-weight:600;color:var(--text-light);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:.2s}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(11,15,26,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--glass-border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.nav-btn{flex:1;padding:8px 4px 6px;border:none;background:0;font-size:9px;font-weight:600;color:var(--text-light);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:.2s;letter-spacing:.3px}
 .nav-btn.active{color:var(--accent)}
 .nav-btn .ico{font-size:20px;line-height:1}
-.nav-btn.add-btn .ico{width:36px;height:36px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;margin-top:-16px;box-shadow:0 2px 8px rgba(91,155,213,.4)}
+.nav-btn.add-btn .ico{width:40px;height:40px;background:var(--accent-grad);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:300;margin-top:-18px;box-shadow:0 4px 20px var(--accent-glow),0 2px 8px var(--accent-glow2)}
 
 .tab-content{display:none;padding:14px;max-width:600px;margin:0 auto}
 .tab-content.active{display:block}
 
-/* ── Shared ── */
-.card{background:var(--card);border-radius:var(--radius);padding:14px;margin-bottom:10px;box-shadow:var(--shadow)}
-.card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-light);margin-bottom:10px}
-.big-num{text-align:center;padding:16px 0}
-.big-num .amt{font-size:40px;font-weight:800;line-height:1}
-.big-num .lbl{font-size:12px;color:var(--text-light);margin-top:3px}
+/* ── Cards (Glassmorphism) ── */
+.card{background:var(--card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.card-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-light);margin-bottom:12px}
+
+/* ── Hero / Big Number ── */
+.big-num{text-align:center;padding:18px 0}
+.big-num .amt{font-size:42px;font-weight:800;line-height:1;letter-spacing:-1px}
+.big-num .lbl{font-size:12px;color:var(--text-light);margin-top:4px;font-weight:500}
 .big-num.ok .amt{color:var(--green)} .big-num.warn .amt{color:var(--yellow)} .big-num.bad .amt{color:var(--red)}
-.progress-bg{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:10px 0 4px}
-.progress-fill{height:100%;border-radius:4px;transition:width .5s,background .3s}
-.progress-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--text-light)}
+
+/* ── Progress ── */
+.progress-bg{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:12px 0 6px}
+.progress-fill{height:100%;border-radius:3px;transition:width .6s ease,background .3s}
+.progress-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--text-light);font-weight:500}
+
+/* ── KPIs ── */
 .kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.kpi{background:var(--bg);border-radius:8px;padding:10px;text-align:center}
-.kpi .v{font-size:20px;font-weight:700;color:var(--navy)} .kpi .l{font-size:10px;color:var(--text-light);margin-top:1px}
-.region-bar{display:flex;align-items:center;padding:10px;border-radius:8px;margin-bottom:6px}
-.region-bar .ri{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-right:10px;flex-shrink:0;color:#fff}
-.region-bar .rn{font-weight:600;font-size:13px} .region-bar .rd{font-size:10px;color:var(--text-light)}
-.region-bar .ra{font-weight:700;font-size:15px;text-align:right} .region-bar .rb{font-size:10px;color:var(--text-light);text-align:right}
-.rf{background:var(--florence)} .rf .ri{background:var(--florence-a)}
-.rt{background:var(--toscana)} .rt .ri{background:var(--toscana-a)}
-.rr{background:var(--roma)} .rr .ri{background:var(--roma-a)}
+.kpi{background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:12px;padding:12px;text-align:center}
+.kpi .v{font-size:20px;font-weight:700;color:var(--text)} .kpi .l{font-size:10px;color:var(--text-light);margin-top:2px;font-weight:500}
+
+/* ── Region Bars ── */
+.region-bar{display:flex;align-items:center;padding:10px 12px;border-radius:12px;margin-bottom:6px;border:1px solid transparent}
+.region-bar .ri{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-right:10px;flex-shrink:0;color:#fff}
+.region-bar .rn{font-weight:600;font-size:13px;color:var(--text)} .region-bar .rd{font-size:10px;color:var(--text-light)}
+.region-bar .ra{font-weight:700;font-size:15px;text-align:right;color:var(--text)} .region-bar .rb{font-size:10px;color:var(--text-light);text-align:right}
+.rf{background:var(--florence);border-color:rgba(251,146,60,0.12)} .rf .ri{background:var(--florence-a)}
+.rt{background:var(--toscana);border-color:rgba(34,197,94,0.12)} .rt .ri{background:var(--toscana-a)}
+.rr{background:var(--roma);border-color:rgba(248,113,113,0.12)} .rr .ri{background:var(--roma-a)}
 
 /* ── Form ── */
-.form-group{margin-bottom:14px}
-.form-label{font-size:12px;font-weight:600;color:var(--text-med);margin-bottom:6px;display:block}
-.form-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:inherit;background:var(--bg);color:var(--text);transition:.2s;-webkit-appearance:none}
-.form-input:focus{outline:0;border-color:var(--accent);background:#fff}
-.form-input.big{font-size:28px;font-weight:700;text-align:center;color:var(--navy);padding:16px}
-.region-badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px;margin-top:4px}
-.region-badge.florence{background:var(--florence);color:var(--florence-a)}
-.region-badge.toscana{background:var(--toscana);color:var(--toscana-a)}
-.region-badge.roma{background:var(--roma);color:var(--roma-a)}
+.form-group{margin-bottom:16px}
+.form-label{font-size:11px;font-weight:600;color:var(--text-light);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.5px}
+.form-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:15px;font-family:inherit;background:rgba(15,23,42,0.8);color:var(--text);transition:.2s;-webkit-appearance:none}
+.form-input:focus{outline:0;border-color:var(--accent);background:rgba(15,23,42,1);box-shadow:0 0 0 3px var(--accent-glow)}
+.form-input.big{font-size:32px;font-weight:800;text-align:center;color:var(--accent);padding:18px;letter-spacing:-1px}
+.region-badge{display:inline-block;font-size:11px;font-weight:600;padding:4px 10px;border-radius:8px;margin-top:4px}
+.region-badge.florence{background:var(--florence);color:var(--florence-a);border:1px solid rgba(251,146,60,0.15)}
+.region-badge.toscana{background:var(--toscana);color:var(--toscana-a);border:1px solid rgba(34,197,94,0.15)}
+.region-badge.roma{background:var(--roma);color:var(--roma-a);border:1px solid rgba(248,113,113,0.15)}
 
-/* Category Pills */
+/* ── Category Pills ── */
 .cat-pills{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.cat-pill{padding:10px 4px;border:2px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;text-align:center;transition:.2s;-webkit-user-select:none;user-select:none}
+.cat-pill{padding:10px 4px;border:1.5px solid var(--border);border-radius:12px;background:var(--card-solid);cursor:pointer;text-align:center;transition:.2s;-webkit-user-select:none;user-select:none}
 .cat-pill .ci{font-size:20px;display:block} .cat-pill .cl{font-size:9px;color:var(--text-light);margin-top:2px;display:block}
-.cat-pill.sel{border-color:var(--accent);background:var(--light-blue)}
+.cat-pill.sel{border-color:var(--accent);background:rgba(6,182,212,0.1);box-shadow:0 0 12px var(--accent-glow)}
 .cat-pill:active{transform:scale(.95)}
 
-/* Payment Pills */
+/* ── Payment Pills ── */
 .pay-pills{display:flex;gap:6px}
-.pay-pill{flex:1;padding:10px 8px;border:2px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;text-align:center;font-size:12px;font-weight:600;transition:.2s;-webkit-user-select:none;user-select:none}
-.pay-pill.sel-wise{border-color:var(--wise);background:#E0F4FF;color:var(--wise)}
-.pay-pill.sel-aeternum{border-color:var(--aeternum);background:#F0E8FF;color:var(--aeternum)}
-.pay-pill.sel-dinheiro{border-color:var(--dinheiro);background:var(--green-light);color:var(--dinheiro)}
+.pay-pill{flex:1;padding:10px 8px;border:1.5px solid var(--border);border-radius:12px;background:var(--card-solid);cursor:pointer;text-align:center;font-size:12px;font-weight:600;color:var(--text-med);transition:.2s;-webkit-user-select:none;user-select:none}
+.pay-pill.sel-wise{border-color:var(--wise);background:rgba(56,189,248,0.1);color:var(--wise);box-shadow:0 0 12px rgba(56,189,248,0.15)}
+.pay-pill.sel-aeternum{border-color:var(--aeternum);background:rgba(167,139,250,0.1);color:var(--aeternum);box-shadow:0 0 12px rgba(167,139,250,0.15)}
+.pay-pill.sel-dinheiro{border-color:var(--dinheiro);background:rgba(52,211,153,0.1);color:var(--dinheiro);box-shadow:0 0 12px rgba(52,211,153,0.15)}
 .pay-pill:active{transform:scale(.95)}
 
-.btn{display:block;width:100%;padding:14px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
-.btn-primary{background:var(--accent);color:#fff} .btn-primary:active{background:var(--blue)}
-.btn-outline{background:#fff;color:var(--text-med);border:1.5px solid var(--border)} .btn-outline:active{background:var(--bg)}
-.btn-danger{background:var(--red-light);color:var(--red)} .btn-danger:active{background:#FFCDD2}
+/* ── Buttons ── */
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
+.btn-primary{background:var(--accent-grad);color:#fff;box-shadow:0 4px 20px var(--accent-glow)} .btn-primary:active{opacity:.85;transform:scale(.98)}
+.btn-outline{background:transparent;color:var(--text-med);border:1.5px solid var(--border)} .btn-outline:active{background:rgba(255,255,255,0.03)}
+.btn-danger{background:var(--red-light);color:var(--red);border:1px solid rgba(239,68,68,0.15)} .btn-danger:active{background:rgba(239,68,68,0.2)}
 .btn-sm{padding:8px 14px;font-size:12px;width:auto;display:inline-block;border-radius:8px}
 
 /* ── Transaction List ── */
-.tx-group-header{font-size:11px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;padding:10px 4px 6px;display:flex;justify-content:space-between;align-items:center}
-.tx-group-total{font-weight:700;color:var(--navy);font-size:13px}
-.tx-item{display:flex;align-items:center;background:var(--card);border-radius:10px;padding:10px 12px;margin-bottom:6px;box-shadow:var(--shadow);gap:10px}
-.tx-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--bg);flex-shrink:0}
+.tx-group-header{font-size:10px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.8px;padding:12px 4px 6px;display:flex;justify-content:space-between;align-items:center}
+.tx-group-total{font-weight:700;color:var(--accent);font-size:13px}
+.tx-item{display:flex;align-items:center;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:14px;padding:10px 12px;margin-bottom:6px;gap:10px;transition:background .2s}
+.tx-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;background:rgba(255,255,255,0.04);flex-shrink:0}
 .tx-info{flex:1;min-width:0}
-.tx-cat{font-size:13px;font-weight:600} .tx-note{font-size:11px;color:var(--text-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-cat{font-size:13px;font-weight:600;color:var(--text)} .tx-note{font-size:11px;color:var(--text-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tx-right{text-align:right;flex-shrink:0}
-.tx-amt{font-weight:700;font-size:15px;color:var(--navy)}
+.tx-amt{font-weight:700;font-size:15px;color:var(--text)}
 .tx-pay{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;display:inline-block;margin-top:2px}
-.tx-pay.wise{background:#E0F4FF;color:var(--wise)} .tx-pay.aeternum{background:#F0E8FF;color:var(--aeternum)} .tx-pay.dinheiro{background:var(--green-light);color:var(--dinheiro)}
+.tx-pay.wise{background:rgba(56,189,248,0.12);color:var(--wise)} .tx-pay.aeternum{background:rgba(167,139,250,0.12);color:var(--aeternum)} .tx-pay.dinheiro{background:rgba(52,211,153,0.12);color:var(--dinheiro)}
 .tx-actions{display:flex;gap:4px;margin-left:4px;flex-shrink:0}
-.tx-act-btn{width:28px;height:28px;border:none;border-radius:6px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center}
-.tx-edit{background:var(--light-blue);color:var(--accent)} .tx-del{background:var(--red-light);color:var(--red)}
+.tx-act-btn{width:28px;height:28px;border:none;border-radius:8px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.tx-edit{background:rgba(6,182,212,0.1);color:var(--accent)} .tx-del{background:var(--red-light);color:var(--red)}
+.tx-act-btn:active{transform:scale(.9)}
 
 /* ── Filters ── */
 .filter-row{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
-.filter-chip{padding:6px 12px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);font-size:11px;font-weight:600;color:var(--text-med);cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0}
-.filter-chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.filter-chip{padding:6px 12px;border-radius:20px;border:1.5px solid var(--border);background:transparent;font-size:11px;font-weight:600;color:var(--text-med);cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0}
+.filter-chip.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 14px var(--accent-glow)}
 
 /* ── Summary ── */
-.cat-row{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid #F5F5F5}
+.cat-row{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
 .cat-row:last-child{border-bottom:0}
 .cat-row .ci2{font-size:16px;width:28px;text-align:center;flex-shrink:0}
 .cat-row .cn{flex:1;margin-left:6px}
-.cat-row .cn .nm{font-size:12px;font-weight:600} .cat-row .cn .bar-bg{height:4px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}
+.cat-row .cn .nm{font-size:12px;font-weight:600;color:var(--text)} .cat-row .cn .bar-bg{height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:3px;overflow:hidden}
 .cat-row .cn .bar-fill{height:100%;border-radius:2px;transition:width .5s}
-.cat-row .ca{text-align:right;flex-shrink:0} .cat-row .ca .av{font-weight:700;font-size:13px} .cat-row .ca .pv{font-size:10px;color:var(--text-light)}
+.cat-row .ca{text-align:right;flex-shrink:0} .cat-row .ca .av{font-weight:700;font-size:13px;color:var(--text)} .cat-row .ca .pv{font-size:10px;color:var(--text-light)}
 
-/* Payment Summary */
+/* ── Payment Summary ── */
 .pay-summary{display:flex;gap:8px;margin-top:8px}
-.pay-card{flex:1;padding:10px;border-radius:8px;text-align:center}
-.pay-card .pv2{font-size:18px;font-weight:700} .pay-card .pl2{font-size:10px;margin-top:2px}
-.pay-wise{background:#E0F4FF;color:var(--wise)} .pay-aeternum{background:#F0E8FF;color:var(--aeternum)} .pay-din{background:var(--green-light);color:var(--dinheiro)}
+.pay-card{flex:1;padding:10px;border-radius:10px;text-align:center;border:1px solid transparent}
+.pay-card .pv2{font-size:18px;font-weight:700} .pay-card .pl2{font-size:10px;margin-top:2px;font-weight:500}
+.pay-wise{background:rgba(56,189,248,0.08);color:var(--wise);border-color:rgba(56,189,248,0.12)}
+.pay-aeternum{background:rgba(167,139,250,0.08);color:var(--aeternum);border-color:rgba(167,139,250,0.12)}
+.pay-din{background:rgba(52,211,153,0.08);color:var(--dinheiro);border-color:rgba(52,211,153,0.12)}
 
 /* ── Paid Items ── */
-.paid-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #F5F5F5;font-size:12px}
+.paid-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--text-med)}
 .paid-item:last-child{border-bottom:0}
-.paid-badge{font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--green-light);color:var(--green)}
+.paid-badge{font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--green-light);color:var(--green)}
 
 /* ── Settings ── */
-.edit-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #F5F5F5}
+.edit-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
 .edit-row:last-child{border-bottom:0}
-.edit-label{font-size:13px;font-weight:500}
-.edit-input{width:90px;padding:8px;border:1.5px solid var(--border);border-radius:8px;text-align:right;font-size:14px;font-weight:600;font-family:inherit;-webkit-appearance:none}
-.edit-input:focus{outline:0;border-color:var(--accent)}
+.edit-label{font-size:13px;font-weight:500;color:var(--text-med)}
+.edit-input{width:90px;padding:8px;border:1.5px solid var(--border);border-radius:8px;text-align:right;font-size:14px;font-weight:600;font-family:inherit;-webkit-appearance:none;background:rgba(15,23,42,0.8);color:var(--text)}
+.edit-input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-glow)}
 
 /* ── Modal ── */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:20px}
 .modal-bg.show{display:flex}
-.modal{background:#fff;border-radius:var(--radius);padding:20px;max-width:340px;width:100%;text-align:center}
-.modal h3{font-size:15px;margin-bottom:6px} .modal p{font-size:12px;color:var(--text-light);margin-bottom:14px}
+.modal{background:var(--card-solid);border:1px solid var(--glass-border);border-radius:var(--radius);padding:20px;max-width:340px;width:100%;text-align:center}
+.modal h3{font-size:15px;margin-bottom:6px;color:var(--text)} .modal p{font-size:12px;color:var(--text-light);margin-bottom:14px}
 .modal-btns{display:flex;gap:8px}
 .modal-btns .btn{flex:1}
 
 /* ── Toast ── */
-.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--navy);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:300;transition:transform .3s;box-shadow:var(--shadow-lg)}
+.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--accent-grad);color:#fff;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;z-index:300;transition:transform .3s;box-shadow:0 4px 24px var(--accent-glow)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
 /* ── Empty State ── */
@@ -153,45 +197,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .empty .ei{font-size:40px;margin-bottom:8px} .empty .et{font-size:14px;font-weight:600;color:var(--text-med)} .empty .es{font-size:12px;margin-top:4px}
 
 /* ── Roteiro Tab ── */
-.rot-day{background:var(--card);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+.rot-day{background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
 .rot-day-header{display:flex;align-items:center;padding:12px 14px;cursor:pointer;gap:10px;-webkit-user-select:none;user-select:none}
 .rot-day-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
-.rot-day-num.florence{background:var(--florence-a)} .rot-day-num.toscana{background:var(--toscana-a)} .rot-day-num.roma{background:var(--roma-a)} .rot-day-num.transit{background:var(--navy)}
+.rot-day-num.florence{background:var(--florence-a)} .rot-day-num.toscana{background:var(--toscana-a)} .rot-day-num.roma{background:var(--roma-a)} .rot-day-num.transit{background:var(--accent)}
 .rot-day-info{flex:1;min-width:0}
 .rot-day-title{font-size:14px;font-weight:700;color:var(--text)} .rot-day-sub{font-size:11px;color:var(--text-light);margin-top:1px}
 .rot-day-arrow{font-size:12px;color:var(--text-light);transition:transform .3s;flex-shrink:0}
 .rot-day.open .rot-day-arrow{transform:rotate(180deg)}
-.rot-day-body{display:none;padding:0 14px 14px;border-top:1px solid #F0F0F0}
+.rot-day-body{display:none;padding:0 14px 14px;border-top:1px solid var(--border)}
 .rot-day.open .rot-day-body{display:block}
 
 .rot-section{margin-top:10px}
 .rot-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-light);margin-bottom:6px;display:flex;align-items:center;gap:4px}
 .rot-section-title::before{content:'';flex:0 0 3px;height:3px;border-radius:2px;background:var(--accent)}
 
-.rot-item{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #F8F8F8;align-items:flex-start}
+.rot-item{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);align-items:flex-start}
 .rot-item:last-child{border-bottom:0}
-.rot-time{font-size:11px;font-weight:700;color:var(--navy);min-width:42px;flex-shrink:0;padding-top:1px}
+.rot-time{font-size:11px;font-weight:700;color:var(--accent);min-width:42px;flex-shrink:0;padding-top:1px}
 .rot-item-content{flex:1;min-width:0}
 .rot-item-title{font-size:13px;font-weight:600;color:var(--text)}
 .rot-item-detail{font-size:11px;color:var(--text-light);margin-top:1px}
 .rot-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px;vertical-align:middle}
-.rot-badge.flight{background:#E3F2FD;color:#1565C0} .rot-badge.train{background:#FFF3E0;color:#E65100}
-.rot-badge.tour{background:#F3E5F5;color:#7B1FA2} .rot-badge.restaurant{background:#FCE4EC;color:#C62828}
-.rot-badge.car{background:#E8F5E9;color:#2E7D32} .rot-badge.ticket{background:#FFF8E1;color:#F57F17}
+.rot-badge.flight{background:rgba(56,189,248,0.12);color:var(--wise)} .rot-badge.train{background:rgba(251,146,60,0.12);color:var(--florence-a)}
+.rot-badge.tour{background:rgba(167,139,250,0.12);color:var(--aeternum)} .rot-badge.restaurant{background:rgba(248,113,113,0.12);color:var(--roma-a)}
+.rot-badge.car{background:rgba(52,211,153,0.12);color:var(--dinheiro)} .rot-badge.ticket{background:rgba(245,158,11,0.12);color:var(--yellow)}
 
-.rot-address{display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:12px;color:var(--text-med);cursor:pointer;-webkit-user-select:all;user-select:all}
+.rot-address{display:flex;align-items:center;gap:6px;background:rgba(30,41,59,0.5);border:1px solid var(--glass-border);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:12px;color:var(--text-med);cursor:pointer;-webkit-user-select:all;user-select:all;transition:.2s}
+.rot-address:active{background:rgba(30,41,59,0.8)}
 .rot-address .rot-addr-icon{font-size:16px;flex-shrink:0}
 .rot-address .rot-addr-text{flex:1}
+.rot-address .rot-addr-text strong{color:var(--text)}
 .rot-address .rot-addr-link{font-size:10px;color:var(--accent);font-weight:600;flex-shrink:0;text-decoration:none}
 
-.rot-suggest{padding:5px 0 5px 8px;border-left:2px solid var(--light-blue);margin:3px 0}
+.rot-suggest{padding:5px 0 5px 8px;border-left:2px solid rgba(6,182,212,0.25);margin:3px 0}
 .rot-suggest-item{font-size:12px;color:var(--text-med);padding:2px 0;line-height:1.4}
 
 .rot-period{font-size:11px;font-weight:700;color:var(--accent);margin:8px 0 4px;display:flex;align-items:center;gap:4px}
 .rot-period::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
 
-.rot-note{background:var(--yellow-light);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:11px;color:var(--text-med);line-height:1.4}
-.rot-note strong{color:var(--text)}
+.rot-note{background:var(--yellow-light);border:1px solid rgba(245,158,11,0.12);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:11px;color:var(--text-med);line-height:1.4}
+.rot-note strong{color:var(--yellow)}
 
 @media(max-width:380px){.big-num .amt{font-size:34px} .kpi .v{font-size:17px} .cat-pills{grid-template-columns:repeat(3,1fr)}}
 </style>
@@ -217,13 +263,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <div class="kpi"><div class="v" id="k-pct">0%</div><div class="l">% utilizado</div></div>
   </div>
   <div class="card" style="margin-top:10px">
-    <div class="card-title">Gastos por Regiao</div>
-    <div class="region-bar rf"><div class="ri">&#127974;</div><div style="flex:1"><div class="rn">Florence</div><div class="rd">18-20 Fev (3 dias)</div></div><div><div class="ra" id="r-fl">€0</div><div class="rb" id="r-fl-b">de €500</div></div></div>
-    <div class="region-bar rt"><div class="ri">&#127815;</div><div style="flex:1"><div class="rn">Toscana</div><div class="rd">21-24 Fev (4 dias)</div></div><div><div class="ra" id="r-to">€0</div><div class="rb" id="r-to-b">de €560</div></div></div>
-    <div class="region-bar rr"><div class="ri">&#127951;</div><div style="flex:1"><div class="rn">Roma</div><div class="rd">25 Fev-01 Mar (5 dias)</div></div><div><div class="ra" id="r-ro">€0</div><div class="rb" id="r-ro-b">de €900</div></div></div>
+    <div class="card-title">Gastos por Categoria</div>
+    <div id="dash-cats"></div>
   </div>
   <div class="card">
-    <div class="card-title">Gastos por Forma de Pagamento</div>
+    <div class="card-title">Gastos por Regiao</div>
+    <div id="dash-regs"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Forma de Pagamento</div>
     <div class="pay-summary">
       <div class="pay-card pay-wise"><div class="pv2" id="pay-w">€0</div><div class="pl2">Wise</div></div>
       <div class="pay-card pay-aeternum"><div class="pv2" id="pay-a">€0</div><div class="pl2">Aeternum</div></div>
@@ -281,25 +329,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div id="tx-container"></div>
 </div>
 
-<!-- ═══ TAB: SUMMARY ═══ -->
-<div id="tab-summary" class="tab-content">
+<!-- ═══ TAB: SETTINGS ═══ -->
+<div id="tab-settings" class="tab-content">
   <div class="card">
-    <div class="card-title">Gastos por Categoria</div>
-    <div id="sum-cats"></div>
-  </div>
-  <div class="card">
-    <div class="card-title">Gastos por Regiao</div>
-    <div id="sum-regs"></div>
-  </div>
-  <div class="card">
-    <div class="card-title">Configuracoes do Budget</div>
+    <div class="card-title">Budget Geral</div>
     <div class="edit-row"><span class="edit-label">Budget total (caixa)</span><input class="edit-input" id="e-total" type="number" value="3000"></div>
     <div class="edit-row"><span class="edit-label">Aluguel carro</span><input class="edit-input" id="e-car" type="number" value="412"></div>
-    <div class="edit-row" style="border-top:1px solid var(--border);padding-top:10px"><span class="edit-label">Florence (plan.)</span><input class="edit-input" id="e-fl" type="number" value="500"></div>
-    <div class="edit-row"><span class="edit-label">Toscana (plan.)</span><input class="edit-input" id="e-to" type="number" value="560"></div>
-    <div class="edit-row"><span class="edit-label">Roma (plan.)</span><input class="edit-input" id="e-ro" type="number" value="900"></div>
-    <button class="btn btn-primary" onclick="saveSettings()" style="margin-top:12px">Salvar configuracoes</button>
   </div>
+  <div class="card">
+    <div class="card-title">Budget por Regiao</div>
+    <div class="edit-row"><span class="edit-label">Florence</span><input class="edit-input" id="e-fl" type="number" value="500"></div>
+    <div class="edit-row"><span class="edit-label">Toscana</span><input class="edit-input" id="e-to" type="number" value="560"></div>
+    <div class="edit-row"><span class="edit-label">Roma</span><input class="edit-input" id="e-ro" type="number" value="900"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Budget por Categoria</div>
+    <div id="settings-cats"></div>
+  </div>
+  <button class="btn btn-primary" onclick="saveSettings()" style="margin:0 14px 12px">Salvar configuracoes</button>
   <div class="card">
     <div class="card-title">Dados</div>
     <div style="display:flex;gap:8px">
@@ -320,7 +367,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <button class="nav-btn" data-tab="roteiro"><span class="ico">&#128506;</span>Roteiro</button>
   <button class="nav-btn add-btn" data-tab="add"><span class="ico">+</span>Lancar</button>
   <button class="nav-btn" data-tab="list"><span class="ico">&#128203;</span>Lancamentos</button>
-  <button class="nav-btn" data-tab="summary"><span class="ico">&#128200;</span>Resumo</button>
+  <button class="nav-btn" data-tab="settings"><span class="ico">&#9881;</span>Settings</button>
 </nav>
 
 <!-- ═══ Modals ═══ -->
@@ -343,18 +390,18 @@ const CATS = [
 ];
 
 const DAYS = [
-  {d:1, dt:'2026-02-18',label:'18/02 Ter',region:'florence',act:'Chegada + Passeio leve'},
-  {d:2, dt:'2026-02-19',label:'19/02 Qua',region:'florence',act:'Duomo, Mercato, Ponte Vecchio'},
-  {d:3, dt:'2026-02-20',label:'20/02 Qui',region:'florence',act:'Oltrarno, Boboli, Santa Croce'},
-  {d:4, dt:'2026-02-21',label:'21/02 Sex',region:'toscana', act:'Florence > Toscana, Feira'},
-  {d:5, dt:'2026-02-22',label:'22/02 Sab',region:'toscana', act:'Vila medieval, San Gimignano'},
-  {d:6, dt:'2026-02-23',label:'23/02 Dom',region:'toscana', act:'Vinicola, Bisteca'},
-  {d:7, dt:'2026-02-24',label:'24/02 Seg',region:'toscana', act:'Dia de descanso'},
-  {d:8, dt:'2026-02-25',label:'25/02 Ter',region:'roma',    act:'Toscana > Roma (trem)'},
-  {d:9, dt:'2026-02-26',label:'26/02 Qua',region:'roma',    act:'Coliseu, Trevi, Pantheon'},
-  {d:10,dt:'2026-02-27',label:'27/02 Qui',region:'roma',    act:'Vaticano, Trastevere'},
-  {d:11,dt:'2026-02-28',label:'28/02 Sex',region:'roma',    act:'Dia buffer, compras'},
-  {d:12,dt:'2026-03-01',label:'01/03 Sab',region:'roma',    act:'Voo de volta'},
+  {d:1, dt:'2026-02-18',label:'18/02 Qua',region:'florence',act:'Chegada + Passeio leve'},
+  {d:2, dt:'2026-02-19',label:'19/02 Qui',region:'florence',act:'Duomo, Mercato, Ponte Vecchio'},
+  {d:3, dt:'2026-02-20',label:'20/02 Sex',region:'florence',act:'Oltrarno, Boboli, Santa Croce'},
+  {d:4, dt:'2026-02-21',label:'21/02 Sab',region:'toscana', act:'Florence > Toscana, Feira'},
+  {d:5, dt:'2026-02-22',label:'22/02 Dom',region:'toscana', act:'Vila medieval, San Gimignano'},
+  {d:6, dt:'2026-02-23',label:'23/02 Seg',region:'toscana', act:'Vinicola, Bisteca'},
+  {d:7, dt:'2026-02-24',label:'24/02 Ter',region:'toscana', act:'Dia de descanso'},
+  {d:8, dt:'2026-02-25',label:'25/02 Qua',region:'roma',    act:'Toscana > Roma (trem)'},
+  {d:9, dt:'2026-02-26',label:'26/02 Qui',region:'roma',    act:'Coliseu, Trevi, Pantheon'},
+  {d:10,dt:'2026-02-27',label:'27/02 Sex',region:'roma',    act:'Vaticano, Trastevere'},
+  {d:11,dt:'2026-02-28',label:'28/02 Sab',region:'roma',    act:'Dia buffer, compras'},
+  {d:12,dt:'2026-03-01',label:'01/03 Dom',region:'roma',    act:'Voo de volta'},
 ];
 
 const REGIONS = {
@@ -380,8 +427,8 @@ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2
 function getAvail(){return state.totalBudget-state.carRental}
 function getRegion(date){const day=DAYS.find(d=>d.dt===date);return day?day.region:'roma'}
 function getDayInfo(date){return DAYS.find(d=>d.dt===date)}
-function fmt(n){return '€'+Math.round(n).toLocaleString('pt-BR')}
-function fmtDec(n){return '€'+n.toFixed(2).replace('.',',')}
+function fmt(n){return '\u20AC'+Math.round(n).toLocaleString('pt-BR')}
+function fmtDec(n){return '\u20AC'+n.toFixed(2).replace('.',',')}
 function formatDate(d){const[y,m,dd]=d.split('-');return dd+'/'+m}
 
 function totalSpent(){return state.transactions.reduce((s,t)=>s+t.amount,0)}
@@ -405,7 +452,7 @@ function renderDash(){
   hero.className='big-num '+(saldo<0?'bad':pct>80?'warn':'ok');
   document.getElementById('hero-amt').textContent=fmt(saldo);
   document.getElementById('prog-fill').style.width=Math.min(pct,100)+'%';
-  document.getElementById('prog-fill').style.background=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--green)';
+  document.getElementById('prog-fill').style.background=pct>90?'var(--red)':pct>70?'var(--yellow)':'linear-gradient(90deg,#06B6D4,#10B981)';
   document.getElementById('prog-spent').textContent=fmt(spent)+' gasto';
   document.getElementById('prog-total').textContent='de '+fmt(avail);
 
@@ -415,15 +462,33 @@ function renderDash(){
   document.getElementById('k-avg').textContent=fmt(avg);
   document.getElementById('k-days').textContent=dl;
   document.getElementById('k-avail').textContent=fmt(da);
-  document.getElementById('k-avail').style.color=da<150?'var(--red)':da<200?'var(--yellow)':'var(--navy)';
+  document.getElementById('k-avail').style.color=da<150?'var(--red)':da<200?'var(--yellow)':'var(--accent)';
   document.getElementById('k-pct').textContent=Math.round(pct)+'%';
 
-  document.getElementById('r-fl').textContent=fmt(regionSpent('florence'));
-  document.getElementById('r-to').textContent=fmt(regionSpent('toscana'));
-  document.getElementById('r-ro').textContent=fmt(regionSpent('roma'));
-  document.getElementById('r-fl-b').textContent='de '+fmt(state.regionBudgets.florence);
-  document.getElementById('r-to-b').textContent='de '+fmt(state.regionBudgets.toscana);
-  document.getElementById('r-ro-b').textContent='de '+fmt(state.regionBudgets.roma);
+  // Category spending
+  const dashCats=document.getElementById('dash-cats');
+  dashCats.innerHTML=CATS.map(c=>{
+    const actual=catSpent(c.key);
+    const pct=c.planned>0?Math.min((actual/c.planned)*100,100):0;
+    const col=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--accent)';
+    return `<div class="cat-row"><span class="ci2">${c.icon}</span><div class="cn"><div class="nm">${c.label}</div><div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="ca"><div class="av">${fmt(actual)}</div><div class="pv">de ${fmt(c.planned)}</div></div></div>`;
+  }).join('');
+
+  // Region spending with progress
+  const dashRegs=document.getElementById('dash-regs');
+  const regData=[
+    {k:'florence',icon:'&#127974;',cls:'rf',name:'Florence',period:'18-20 Fev (3 dias)'},
+    {k:'toscana',icon:'&#127815;',cls:'rt',name:'Toscana',period:'21-24 Fev (4 dias)'},
+    {k:'roma',icon:'&#127951;',cls:'rr',name:'Roma',period:'25 Fev-01 Mar (5 dias)'}
+  ];
+  dashRegs.innerHTML=regData.map(r=>{
+    const actual=regionSpent(r.k);
+    const planned=state.regionBudgets[r.k];
+    const pct=planned>0?Math.min((actual/planned)*100,100):0;
+    const diff=planned-actual;
+    const col=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--accent)';
+    return `<div class="region-bar ${r.cls}"><div class="ri">${r.icon}</div><div style="flex:1"><div class="rn">${r.name}</div><div class="rd">${r.period}</div><div class="bar-bg" style="margin-top:4px"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div></div><div><div class="ra">${fmt(actual)}</div><div class="rb">${diff>=0?fmt(diff)+' restam':fmt(-diff)+' acima'}</div></div></div>`;
+  }).join('');
 
   document.getElementById('pay-w').textContent=fmt(paySpent('wise'));
   document.getElementById('pay-a').textContent=fmt(paySpent('aeternum'));
@@ -447,7 +512,7 @@ function updateRegionBadge(){
     const r=day.region;
     el.innerHTML=`<span class="region-badge ${r}">Dia ${day.d} | ${REGIONS[r].name} | ${day.act}</span>`;
   }else{
-    el.innerHTML='<span class="region-badge" style="background:#eee;color:var(--text-light)">Fora do roteiro</span>';
+    el.innerHTML='<span class="region-badge" style="background:rgba(255,255,255,0.05);color:var(--text-light);border:1px solid var(--border)">Fora do roteiro</span>';
   }
 }
 
@@ -558,7 +623,6 @@ function renderList(){
     const dayInfo=getDayInfo(date);
     const dayLabel=dayInfo?`Dia ${dayInfo.d} - ${dayInfo.label}`:formatDate(date);
     const dayTotal=items.reduce((s,t)=>s+t.amount,0);
-    const regionClass=dayInfo?dayInfo.region:'';
 
     html+=`<div class="tx-group-header"><span>${dayLabel}</span><span class="tx-group-total">${fmtDec(dayTotal)}</span></div>`;
 
@@ -603,30 +667,19 @@ function confirmDelete(){
   showToast('Lancamento excluido');
 }
 
-// ═══ RENDER: Summary ═══
-function renderSummary(){
-  const catsEl=document.getElementById('sum-cats');
-  catsEl.innerHTML=CATS.map(c=>{
-    const actual=catSpent(c.key);
-    const pct=c.planned>0?Math.min((actual/c.planned)*100,100):0;
-    const col=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--accent)';
-    return `<div class="cat-row"><span class="ci2">${c.icon}</span><div class="cn"><div class="nm">${c.label}</div><div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="ca"><div class="av">${fmt(actual)}</div><div class="pv">de ${fmt(c.planned)}</div></div></div>`;
-  }).join('');
-
-  const regsEl=document.getElementById('sum-regs');
-  regsEl.innerHTML=Object.entries(REGIONS).map(([k,v])=>{
-    const actual=regionSpent(k);
-    const pct=v.planned>0?Math.min((actual/v.planned)*100,100):0;
-    const diff=v.planned-actual;
-    const col=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--accent)';
-    return `<div class="cat-row"><div class="cn"><div class="nm">${v.name}</div><div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="ca"><div class="av">${fmt(actual)}</div><div class="pv">${diff>=0?fmt(diff)+' restam':fmt(-diff)+' acima'}</div></div></div>`;
-  }).join('');
-
+// ═══ RENDER: Settings ═══
+function renderSettings(){
   document.getElementById('e-total').value=state.totalBudget;
   document.getElementById('e-car').value=state.carRental;
   document.getElementById('e-fl').value=state.regionBudgets.florence;
   document.getElementById('e-to').value=state.regionBudgets.toscana;
   document.getElementById('e-ro').value=state.regionBudgets.roma;
+
+  // Category budget inputs
+  const catSettingsEl=document.getElementById('settings-cats');
+  catSettingsEl.innerHTML=CATS.map(c=>{
+    return `<div class="edit-row"><span class="edit-label">${c.icon} ${c.label}</span><input class="edit-input" id="e-cat-${c.key}" type="number" value="${c.planned}"></div>`;
+  }).join('');
 }
 
 // ═══ Settings ═══
@@ -639,6 +692,12 @@ function saveSettings(){
   REGIONS.florence.planned=state.regionBudgets.florence;
   REGIONS.toscana.planned=state.regionBudgets.toscana;
   REGIONS.roma.planned=state.regionBudgets.roma;
+  // Category budgets
+  if(!state.categoryBudgets)state.categoryBudgets={};
+  for(const c of CATS){
+    const el=document.getElementById('e-cat-'+c.key);
+    if(el){const v=parseFloat(el.value);c.planned=v||c.planned;state.categoryBudgets[c.key]=c.planned;}
+  }
   save();renderAll();showToast('Configuracoes salvas!');
 }
 
@@ -666,7 +725,7 @@ function switchTab(tab){
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.querySelector(`.nav-btn[data-tab="${tab}"]`).classList.add('active');
   document.getElementById('tab-'+tab).classList.add('active');
-  if(tab==='summary')renderSummary();
+  if(tab==='settings')renderSettings();
   if(tab==='list')renderList();
   if(tab==='roteiro')renderRoteiro();
 }
@@ -676,14 +735,14 @@ document.querySelectorAll('.nav-btn').forEach(btn=>{
 });
 
 // ═══ Render All ═══
-function renderAll(){renderDash();renderList();renderSummary()}
+function renderAll(){renderDash();renderList();renderSettings()}
 
 // ═══════════════════════════════════════
 // ROTEIRO DATA
 // ═══════════════════════════════════════
 const ITINERARY = [
   {
-    day:0, date:'2026-02-17', label:'Seg 17/02', region:'transit',
+    day:0, date:'2026-02-17', label:'Ter 17/02', region:'transit',
     title:'Partida do Brasil',
     accommodation:null,
     confirmed:[
@@ -692,7 +751,7 @@ const ITINERARY = [
     periods:[]
   },
   {
-    day:1, date:'2026-02-18', label:'Ter 18/02', region:'florence',
+    day:1, date:'2026-02-18', label:'Qua 18/02', region:'florence',
     title:'Chegada na Italia \u2192 Florence',
     accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},
     confirmed:[
@@ -706,7 +765,7 @@ const ITINERARY = [
     note:'Dia de adaptacao ao fuso. Foco: descanso e aclimatacao.'
   },
   {
-    day:2, date:'2026-02-19', label:'Qua 19/02', region:'florence',
+    day:2, date:'2026-02-19', label:'Qui 19/02', region:'florence',
     title:'Florence historica',
     accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},
     confirmed:[
@@ -719,7 +778,7 @@ const ITINERARY = [
     ]
   },
   {
-    day:3, date:'2026-02-20', label:'Qui 20/02', region:'florence',
+    day:3, date:'2026-02-20', label:'Sex 20/02', region:'florence',
     title:'Florence Oltrarno',
     accommodation:{name:'Airbnb Oltrarno',address:'Via Santa Maria, 22, Florence, Tuscany 50125'},
     confirmed:[
@@ -733,7 +792,7 @@ const ITINERARY = [
     note:'Plano B (tempo ruim): Galleria dell\'Accademia (David de Michelangelo), cafes e mercados cobertos.'
   },
   {
-    day:4, date:'2026-02-21', label:'Sex 21/02', region:'toscana',
+    day:4, date:'2026-02-21', label:'Sab 21/02', region:'toscana',
     title:'Florence \u2192 Toscana Rural',
     accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
     confirmed:[
@@ -747,7 +806,7 @@ const ITINERARY = [
     ]
   },
   {
-    day:5, date:'2026-02-22', label:'Sab 22/02', region:'toscana',
+    day:5, date:'2026-02-22', label:'Dom 22/02', region:'toscana',
     title:'Toscana: Vila Medieval',
     accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
     confirmed:[],
@@ -758,7 +817,7 @@ const ITINERARY = [
     ]
   },
   {
-    day:6, date:'2026-02-23', label:'Dom 23/02', region:'toscana',
+    day:6, date:'2026-02-23', label:'Seg 23/02', region:'toscana',
     title:'Toscana: Segundo passeio',
     accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
     confirmed:[
@@ -771,7 +830,7 @@ const ITINERARY = [
     note:'Se Clarice ou idosos estiverem cansados: pular passeio e ficar na base.'
   },
   {
-    day:7, date:'2026-02-24', label:'Seg 24/02', region:'toscana',
+    day:7, date:'2026-02-24', label:'Ter 24/02', region:'toscana',
     title:'Toscana: Dia de Descanso',
     accommodation:{name:'Casa Toscana',address:'Via Francesco da Barberino, 42, Barberino Val d\'Elsa, Tuscany 50021'},
     confirmed:[],
@@ -781,7 +840,7 @@ const ITINERARY = [
     note:'Objetivo: recarregar bateria antes de Roma. Manter rotina da Clarice.'
   },
   {
-    day:8, date:'2026-02-25', label:'Ter 25/02', region:'roma',
+    day:8, date:'2026-02-25', label:'Qua 25/02', region:'roma',
     title:'Toscana \u2192 Roma',
     accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
     confirmed:[
@@ -794,7 +853,7 @@ const ITINERARY = [
     ]
   },
   {
-    day:9, date:'2026-02-26', label:'Qua 26/02', region:'roma',
+    day:9, date:'2026-02-26', label:'Qui 26/02', region:'roma',
     title:'Roma: Coliseu + Centro',
     accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
     confirmed:[
@@ -807,7 +866,7 @@ const ITINERARY = [
     ]
   },
   {
-    day:10, date:'2026-02-27', label:'Qui 27/02', region:'roma',
+    day:10, date:'2026-02-27', label:'Sex 27/02', region:'roma',
     title:'Roma: Vaticano',
     accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
     confirmed:[],
@@ -819,7 +878,7 @@ const ITINERARY = [
     note:'Alternativa mais leve: Villa Borghese (parque), Piazza di Spagna, Via Condotti.'
   },
   {
-    day:11, date:'2026-02-28', label:'Sex 28/02', region:'roma',
+    day:11, date:'2026-02-28', label:'Sab 28/02', region:'roma',
     title:'Roma: Dia Buffer',
     accommodation:{name:'Airbnb Trastevere',address:'Vicolo Moroni, 11, Rome, Lazio 00153'},
     confirmed:[
@@ -833,7 +892,7 @@ const ITINERARY = [
     ]
   },
   {
-    day:12, date:'2026-03-01', label:'Sab 01/03', region:'roma',
+    day:12, date:'2026-03-01', label:'Dom 01/03', region:'roma',
     title:'Volta para o Brasil',
     accommodation:null,
     confirmed:[
